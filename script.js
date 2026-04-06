@@ -129,19 +129,36 @@ function launchSite() {
   }, 500);
 }
 
-// Skip
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    skip = true;
-    launchSite();
-  }
-});
 
-document.getElementById("landing").addEventListener("click", () => {
-  // hide landing
-  document.getElementById("landing").style.display = "none";
+document.getElementById("startPrompt").addEventListener("click", () => {
+    // hide landing
+    document.getElementById("landing").style.display = "none";
 
-  // show terminal and start sequence
-  document.getElementById("terminal").classList.remove("hidden");
-  runSequence(); // your existing terminal boot animation
+    // show terminal and start sequence
+    document.getElementById("terminal").classList.remove("hidden");
+
+    // Show skip hint
+    const skipHint = document.getElementById("skipHint");
+    if (skipHint) skipHint.style.display = "block";
+
+    runSequence(); // your existing terminal boot animation
+
+    // now enable skip functionality
+    function skipSequence() {
+        if (!skip) {
+        skip = true;
+        launchSite();
+        }
+    }
+
+    // Keyboard skip
+    document.addEventListener("keydown", (e) => {
+        skipSequence();
+    });
+
+    // Mouse skip
+    document.addEventListener("mousedown", (e) => {
+        skipSequence();
+
+    });
 });
