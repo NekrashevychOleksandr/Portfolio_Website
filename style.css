@@ -1,0 +1,112 @@
+body {
+  margin: 0;
+  background: black;
+  color: #00ff88;
+  font-family: monospace;
+  overflow: hidden;
+}
+
+
+#landing {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: black;
+  color: #00ff88;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  font-size: clamp(20px, 3vw, 60px);
+  overflow: hidden;
+}
+
+/* Simple noise overlay */
+#landing::before {
+  content: "";
+  position: absolute;
+  width: 100%; height: 100%;
+  background: url('data:image/svg+xml;...'); /* optional noise SVG or GIF */
+  opacity: 0.05;
+  top: 0; left: 0;
+  pointer-events: none;
+}
+
+
+#landingContent h1, #landingContent h2, #startPrompt {
+  margin: 0.5em;
+  text-shadow: 0 0 10px #00ff88;
+}
+
+/* Terminal container */
+#terminal {
+  padding: 40px;
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Output text */
+#output {
+  white-space: pre-wrap;
+
+  font-size: clamp(16px, 2.5vw, 40px);
+  line-height: 1.5;
+
+  text-shadow:
+    0 0 5px #00ff88,
+    0 0 10px #00ff88;
+}
+
+/* Cursor */
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: #00ff88;
+  margin-left: 4px;
+
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Skip */
+#skip {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+#startPrompt {
+    cursor: pointer;
+    display: inline-block;
+    color: #00ff88;
+    text-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88;
+    animation: neonFlicker 2s linear infinite; /* constant glow/flicker */
+    transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+@keyframes neonFlicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+    }
+    20%, 22%, 24%, 55% {
+        opacity: 0.5;
+    }
+}
+
+/* Hover effect: grow + stop flicker */
+#startPrompt:hover {
+    animation: none; /* stop flickering */
+    transform: scale(1.1); /* slight growth */
+    text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88; /* intensify glow */
+}
