@@ -143,20 +143,3 @@ body {
 }
 
 
-#skipHint {
-  position: fixed;
-  bottom: 10px;
-  right: 10px;
-  font-family: 'Courier New', monospace;
-  font-size: clamp(16px, 2.5vw, 40px);;
-  color: #00ff88;
-  text-shadow: 0 0 5px #00ff88;
-  opacity: 0.6;
-  pointer-events: none; /* clicks go through */
-  display: none; /* start hidden */
-}
-
-/* Optional: hover fade-in if you want it more visible on hover */
-#skipHint:hover {
-  opacity: 1;
-}

@@ -2,10 +2,16 @@ const output = document.getElementById("output");
 
 const sequence = [
   { type: "command", text: "connect --secure" },
-  { type: "output", text: "Establishing secure connection" },
-  { type: "command", text: "auth --user root" },
-  { type: "output", text: "Authentication successful" },
-  { type: "command", text: "launch interface" },
+  { type: "output", text: "Establishing secure connection"},
+  { type: "output", text: "Encrypting channel" },
+  { type: "output_nodot", text: "Handshake complete" },
+
+  { type: "output", text: "Authenticating user"},
+  { type: "output_nodot", text: "Credentials verified" },
+  { type: "output_nodot", text: "Access granted" },
+
+  { type: "output", text: "Loading interface modules"},
+  { type: "output", text: "Initializing renderer"},
   { type: "output", text: "Starting UI" }
 ];
 
@@ -22,6 +28,27 @@ function createCommandLine() {
   const cursor = document.createElement("span");
 
   prompt.textContent = "root@system:~$ ";
+  cursor.classList.add("cursor");
+
+  line.appendChild(prompt);
+  line.appendChild(text);
+  line.appendChild(cursor);
+  output.appendChild(line);
+
+  currentCursor = cursor;
+
+  return { line, text, cursor };
+}
+
+function createOutputNodotLine() {
+  if (currentCursor) currentCursor.remove();
+
+  const line = document.createElement("div");
+  const prompt = document.createElement("span");
+  const text = document.createElement("span");
+  const cursor = document.createElement("span");
+
+  prompt.textContent = "";
   cursor.classList.add("cursor");
 
   line.appendChild(prompt);
@@ -109,12 +136,25 @@ function runSequence(index = 0) {
 
   const item = sequence[index];
 
-  if (item.type === "command") {
+  if(index==1)
+  {
+    const textEl = createOutputLine();
+    animateDots(item.text, textEl, () => runSequence(index + 1));
+    skip = true;
+    launchSite();
+  }
+  else if (item.type === "command") {
     const { text } = createCommandLine();
     typeCommand(item.text, text, () => runSequence(index + 1));
   } else if (item.type === "output") {
+
     const textEl = createOutputLine();
     animateDots(item.text, textEl, () => runSequence(index + 1));
+  }
+   else if (item.type === "output_nodot") {
+
+    const { text } = createOutputNodotLine();
+    typeCommand(item.text, text, () => runSequence(index + 1));
   }
 }
 
@@ -137,28 +177,7 @@ document.getElementById("startPrompt").addEventListener("click", () => {
     // show terminal and start sequence
     document.getElementById("terminal").classList.remove("hidden");
 
-    // Show skip hint
-    const skipHint = document.getElementById("skipHint");
-    if (skipHint) skipHint.style.display = "block";
-
     runSequence(); // your existing terminal boot animation
 
-    // now enable skip functionality
-    function skipSequence() {
-        if (!skip) {
-        skip = true;
-        launchSite();
-        }
-    }
 
-    // Keyboard skip
-    document.addEventListener("keydown", (e) => {
-        skipSequence();
-    });
-
-    // Mouse skip
-    document.addEventListener("mousedown", (e) => {
-        skipSequence();
-
-    });
 });
