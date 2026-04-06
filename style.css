@@ -110,3 +110,34 @@ body {
     transform: scale(1.1); /* slight growth */
     text-shadow: 0 0 15px #00ff88, 0 0 30px #00ff88; /* intensify glow */
 }
+
+#crackedOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: url('assets/cracked_screen.jpg') no-repeat center center;
+  background-size: cover;
+  pointer-events: none;
+  z-index: 9999; /* above everything */
+}
+
+/* Optional: force clipping of glow behind overlay */
+#contentWrapper {
+  position: relative;
+  z-index: 1; /* everything below cracks */
+}
+
+@keyframes screenFlicker {
+  0%, 100% { opacity: 0.65; }
+  50% { opacity: 0.95; }
+}
+
+#crackedOverlay {
+  opacity: 0.25;
+}
+
+#landing, #terminal {
+  animation: screenFlicker 3s infinite ease-in-out;
+}
