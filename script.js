@@ -254,3 +254,55 @@ document.querySelectorAll("#navBar a").forEach(link => {
     }
   });
 });
+
+
+document.querySelectorAll(".copyable").forEach(card => {
+  card.addEventListener("click", async () => {
+    const text = card.getAttribute("data-copy");
+
+    try {
+      await navigator.clipboard.writeText(text);
+
+      card.classList.add("copied");
+
+      setTimeout(() => {
+        card.classList.remove("copied");
+      }, 600);
+
+    } catch (err) {
+      console.log("Copy failed:", err);
+    }
+  });
+});
+
+
+const toast = document.getElementById("copyToast");
+
+function showToast(message = "COPIED TO CLIPBOARD") {
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 900);
+}
+
+document.querySelectorAll(".copyable").forEach(card => {
+  card.addEventListener("click", async () => {
+    const text = card.getAttribute("data-copy");
+
+    try {
+      await navigator.clipboard.writeText(text);
+
+      card.classList.add("copied");
+      showToast("COPIED");
+
+      setTimeout(() => {
+        card.classList.remove("copied");
+      }, 600);
+
+    } catch (err) {
+      showToast("COPY FAILED");
+    }
+  });
+});

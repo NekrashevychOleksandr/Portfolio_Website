@@ -357,3 +357,60 @@ body {
   0%, 100% { opacity: 0.65; }
   50% { opacity: 0.95; }
 }
+
+
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.contactCard {
+  border: 1px solid #00ff88;
+  padding: 15px;
+  text-decoration: none;
+  color: #00ff88;
+  background: rgba(0, 0, 0, 0.5);
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.contactCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 12px #00ff88;
+}
+
+/* small feedback when copied */
+.contactCard.copied {
+  box-shadow: 0 0 25px #00ff88;
+  transform: scale(1.02);
+}
+
+
+#copyToast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background: rgba(0, 0, 0, 0.9);
+  border: 1px solid #00ff88;
+  color: #00ff88;
+
+  padding: 10px 20px;
+  font-size: 12px;
+  letter-spacing: 2px;
+
+  opacity: 0;
+  pointer-events: none;
+
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#copyToast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-5px);
+}
