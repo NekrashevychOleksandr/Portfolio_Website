@@ -10,9 +10,9 @@ const sequence = [
   { type: "output_nodot", text: "Credentials verified" },
   { type: "output_nodot", text: "Access granted" },
 
-  { type: "output", text: "Loading interface modules"},
-  { type: "output", text: "Initializing renderer"},
-  { type: "output", text: "Starting UI" }
+  { type: "output", text: "Loading assets"},
+  { type: "output", text: "Initializing GUI"},
+  { type: "output", text: "Loading user data" }
 ];
 
 let currentCursor = null;
@@ -71,57 +71,54 @@ function createOutputLine() {
   return text;
 }
 
-function typeCommand(content, textElement, callback) {
+function typeCommand(content, textElement, callback, instant = false) {
+
+  if (instant) {
+    textElement.textContent = content;
+    if (currentCursor) currentCursor.remove();
+    currentCursor = null;
+    setTimeout(callback, 30);
+    return;
+  }
+
   let i = 0;
 
   function typeChar() {
-    if (skip) {
-      textElement.textContent = content;
-      if (currentCursor) currentCursor.remove();
-      setTimeout(callback, 50); // faster skip
-      return;
-    }
-
     if (i < content.length) {
       textElement.textContent += content[i];
       i++;
-      setTimeout(typeChar, Math.random() * 15 + 10); // faster typing
+      setTimeout(typeChar, Math.random() * 15 + 10);
     } else {
-      // after finishing typing, keep cursor briefly
       setTimeout(() => {
-        // only remove cursor after the linger delay
-        setTimeout(() => {
-          if (currentCursor) currentCursor.remove();
-          currentCursor = null;
-
-          callback(); // proceed to next sequence
-        }, 600); // linger delay before cursor disappears
+        if (currentCursor) currentCursor.remove();
+        currentCursor = null;
+        setTimeout(callback, 150);
       }, 0);
     }
   }
 
-  // tiny delay before starting typing (after prompt)
-  setTimeout(typeChar, 100);
+  setTimeout(typeChar, 80);
 }
 
 
-function animateDots(baseText, textElement, callback) {
+function animateDots(baseText, textElement, callback, instant = false) {
+
+  if (instant) {
+    textElement.textContent = baseText + "...";
+    setTimeout(callback, 20);
+    return;
+  }
+
   textElement.textContent = baseText;
   let dots = 0;
 
   function step() {
-    if (skip) {
-      textElement.textContent = baseText + "...";
-      callback();
-      return;
-    }
-
     if (dots < 3) {
       textElement.textContent += ".";
       dots++;
-      setTimeout(step, 200); // faster dot speed
+      setTimeout(step, 180);
     } else {
-      setTimeout(callback, 150); // faster pause after dots
+      setTimeout(callback, 120);
     }
   }
 
@@ -134,39 +131,77 @@ function runSequence(index = 0) {
     return;
   }
 
+
   const item = sequence[index];
 
-  if(index==1)
-  {
-    const textEl = createOutputLine();
-    animateDots(item.text, textEl, () => runSequence(index + 1));
-    skip = true;
-    launchSite();
-  }
-  else if (item.type === "command") {
-    const { text } = createCommandLine();
-    typeCommand(item.text, text, () => runSequence(index + 1));
-  } else if (item.type === "output") {
+  const isFirstPhase = index < 1;
+  const isLastPhase = index === sequence.length - 1;
+  const isInstant = !(isFirstPhase || isLastPhase);
 
-    const textEl = createOutputLine();
-    animateDots(item.text, textEl, () => runSequence(index + 1));
+  // small transition pause when entering "fast mode"
+  if (index === 3) {
+    setTimeout(() => processItem(), 200);
+    return;
   }
-   else if (item.type === "output_nodot") {
 
-    const { text } = createOutputNodotLine();
-    typeCommand(item.text, text, () => runSequence(index + 1));
+  processItem();
+
+  function processItem() {
+    if (item.type === "command") {
+      const { text } = createCommandLine();
+
+      typeCommand(
+        item.text,
+        text,
+        () => runSequence(index + 1),
+        isInstant
+      );
+
+    } else if (item.type === "output") {
+      const textEl = createOutputLine();
+
+      animateDots(
+        item.text,
+        textEl,
+        () => runSequence(index + 1),
+        isInstant
+      );
+
+    } else if (item.type === "output_nodot") {
+      const { text } = createOutputNodotLine();
+
+      typeCommand(
+        item.text,
+        text,
+        () => runSequence(index + 1),
+        isInstant
+      );
+    }
   }
 }
-
 // Transition to main site
 function launchSite() {
   setTimeout(() => {
-    document.getElementById("terminal").classList.add("fade-out");
+    const terminal = document.getElementById("terminal");
+    const appWindow = document.getElementById("appWindow");
+    const cracks = document.getElementById("crackedOverlay");
+
+    // fade out terminal
+    terminal.style.opacity = 0;
+
     setTimeout(() => {
-      document.getElementById("terminal").style.display = "none";
-      document.getElementById("main").classList.remove("hidden");
-    }, 800);
-  }, 500);
+      terminal.style.display = "none";
+
+      // show window
+      appWindow.classList.remove("hidden");
+      appWindow.classList.add("open");
+
+      // REMOVE cracks effect
+      cracks.style.opacity = 0;
+
+    }, 500);
+
+  }, 300);
 }
 
 
@@ -180,4 +215,42 @@ document.getElementById("startPrompt").addEventListener("click", () => {
     runSequence(); // your existing terminal boot animation
 
 
+});
+
+
+
+document.querySelectorAll(".projectCard").forEach(card => {
+  const video = card.querySelector("video");
+
+  card.addEventListener("mouseenter", () => {
+    if (!video) return;
+
+    video.currentTime = 0;
+    video.play().catch(err => {
+      console.log("Video play blocked:", err);
+    });
+  });
+
+  card.addEventListener("mouseleave", () => {
+    if (!video) return;
+    video.pause();
+  });
+});
+
+
+document.querySelectorAll("#navBar a").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+
+    const targetId = link.getAttribute("href").substring(1);
+    const target = document.getElementById(targetId);
+    const container = document.getElementById("windowContent");
+
+    if (target && container) {
+      container.scrollTo({
+        top: target.offsetTop,
+        behavior: "smooth"
+      });
+    }
+  });
 });
