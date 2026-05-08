@@ -8,15 +8,43 @@ canvas.height = window.innerHeight;
    SETTINGS
 ========================= */
 
-const FOV = 600;
-const SPEED = 5;
-const STAR_COUNT = 200;
+const baseSpeed = 5;
+let SPEED = baseSpeed;
 
-const SIGNAL_SPEED = 12;
+let SIGNAL_SPEED = 12;
 const SIGNAL_LIFETIME = 90;
 
+const STAR_COUNT = 200;
+
 /* =========================
-   MOUSE STATE
+   STATE
+========================= */
+
+let state = 0;
+let t = 0;
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const intro = document.getElementById("center");
+const portfolio = document.getElementById("portfolio");
+
+/* =========================
+   INPUT
+========================= */
+
+window.addEventListener("mousemove", (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+});
+
+document.getElementById("enter").addEventListener("click", () => {
+    if (state === 0) state = 1;
+});
+
+/* =========================
+   MOUSE
 ========================= */
 
 const mouse = {
@@ -24,10 +52,77 @@ const mouse = {
     y: canvas.height / 2
 };
 
-window.addEventListener("mousemove", (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
+/* =========================
+   STATE UPDATE
+========================= */
+
+function updateState() {
+
+    t += 0.01;
+
+    /* INTRO EXIT */
+    if (state === 1) {
+
+        const p = Math.min(t / 0.4, 1);
+
+        const drift = p * 500;
+        const curve = Math.sin(p * Math.PI) * 120;
+
+        intro.style.transform =
+            `translateX(${-drift - curve}px) scale(${1 + p * 0.15})`;
+
+        intro.style.opacity = String(1 - p * 1.5);
+
+        SPEED = baseSpeed;
+
+        if (p >= 1) {
+            state = 2;
+            t = 0;
+
+            /* ✅ FIX: REMOVE INTRO FROM INTERACTION FLOW */
+            intro.style.display = "none";
+            intro.style.pointerEvents = "none";
+        }
+    }
+
+    /* WARP */
+    else if (state === 2) {
+
+        const p = Math.min(t / 0.6, 1);
+
+        SPEED = baseSpeed + p * 30;
+        SIGNAL_SPEED = 12 + p * 8;
+
+        if (p >= 1) {
+            state = 3;
+            t = 0;
+        }
+    }
+
+    /* SETTLE */
+    else if (state === 3) {
+
+        const p = Math.min(t / 0.6, 1);
+
+        SPEED = baseSpeed + (1 - p) * 30;
+        SIGNAL_SPEED = 12;
+
+        if (p >= 1) {
+            state = 4;
+            t = 0;
+        }
+    }
+
+    /* PORTFOLIO */
+    else if (state === 4) {
+
+        const p = Math.min(t / 0.5, 1);
+
+        portfolio.style.opacity = String(p);
+        portfolio.style.transform =
+            `translateX(${(1 - p) * 600}px)`;
+    }
+}
 
 /* =========================
    STARS
@@ -58,7 +153,7 @@ class Star {
             this.z = 3000;
         }
 
-        const scale = FOV / this.z;
+        const scale = 600 / this.z;
 
         this.px = this.x * scale + canvas.width / 2;
         this.py = this.y * scale + canvas.height / 2;
@@ -86,50 +181,34 @@ for (let i = 0; i < STAR_COUNT; i++) {
 
 const signals = [];
 
-window.addEventListener("click", () => {
+window.addEventListener("click", (e) => {
 
     signals.push({
-        x: mouse.x,
-        y: mouse.y,
+        x: e.clientX,
+        y: e.clientY,
         radius: 10,
         life: SIGNAL_LIFETIME
     });
 });
 
-/* =========================
-   AUTO SIGNAL SYSTEM (NEW)
-========================= */
-
 let autoTimer = 0;
-
-function spawnAutoSignal() {
-
-    const centerBias = 0.6;
-
-    const x = Math.random() * canvas.width;
-    const y = Math.random() * canvas.height;
-
-    signals.push({
-        x: x * (1 - centerBias) + mouse.x * centerBias,
-        y: y * (1 - centerBias) + mouse.y * centerBias,
-        radius: 10,
-        life: SIGNAL_LIFETIME
-    });
-}
 
 function updateAutoSignals() {
 
     autoTimer++;
 
     if (autoTimer > 160 + Math.random() * 120) {
-        spawnAutoSignal();
+
+        signals.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: 10,
+            life: SIGNAL_LIFETIME
+        });
+
         autoTimer = 0;
     }
 }
-
-/* =========================
-   SIGNAL UPDATE
-========================= */
 
 function updateSignals() {
 
@@ -146,7 +225,7 @@ function updateSignals() {
 }
 
 /* =========================
-   WAVE CONNECTION SYSTEM
+   CONNECTIONS
 ========================= */
 
 function connect() {
@@ -211,6 +290,8 @@ function animate() {
 
     ctx.fillStyle = "rgba(5,7,13,0.25)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    updateState();
 
     for (let star of stars) {
         star.update();
