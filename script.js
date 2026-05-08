@@ -1,308 +1,236 @@
-const output = document.getElementById("output");
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
 
-const sequence = [
-  { type: "command", text: "connect --secure" },
-  { type: "output", text: "Establishing secure connection"},
-  { type: "output", text: "Encrypting channel" },
-  { type: "output_nodot", text: "Handshake complete" },
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-  { type: "output", text: "Authenticating user"},
-  { type: "output_nodot", text: "Credentials verified" },
-  { type: "output_nodot", text: "Access granted" },
+/* =========================
+   SETTINGS
+========================= */
 
-  { type: "output", text: "Loading assets"},
-  { type: "output", text: "Initializing GUI"},
-  { type: "output", text: "Loading user data" }
-];
+const FOV = 600;
+const SPEED = 5;
+const STAR_COUNT = 200;
 
-let currentCursor = null;
-let skip = false;
+const SIGNAL_SPEED = 12;
+const SIGNAL_LIFETIME = 90;
 
-// Create a command line with cursor
-function createCommandLine() {
-  if (currentCursor) currentCursor.remove();
+/* =========================
+   MOUSE STATE
+========================= */
 
-  const line = document.createElement("div");
-  const prompt = document.createElement("span");
-  const text = document.createElement("span");
-  const cursor = document.createElement("span");
+const mouse = {
+    x: canvas.width / 2,
+    y: canvas.height / 2
+};
 
-  prompt.textContent = "root@system:~$ ";
-  cursor.classList.add("cursor");
-
-  line.appendChild(prompt);
-  line.appendChild(text);
-  line.appendChild(cursor);
-  output.appendChild(line);
-
-  currentCursor = cursor;
-
-  return { line, text, cursor };
-}
-
-function createOutputNodotLine() {
-  if (currentCursor) currentCursor.remove();
-
-  const line = document.createElement("div");
-  const prompt = document.createElement("span");
-  const text = document.createElement("span");
-  const cursor = document.createElement("span");
-
-  prompt.textContent = "";
-  cursor.classList.add("cursor");
-
-  line.appendChild(prompt);
-  line.appendChild(text);
-  line.appendChild(cursor);
-  output.appendChild(line);
-
-  currentCursor = cursor;
-
-  return { line, text, cursor };
-}
-
-
-// Create output line (no cursor) and animate dots
-function createOutputLine() {
-  const line = document.createElement("div");
-  const text = document.createElement("span");
-  line.appendChild(text);
-  output.appendChild(line);
-  return text;
-}
-
-function typeCommand(content, textElement, callback, instant = false) {
-
-  if (instant) {
-    textElement.textContent = content;
-    if (currentCursor) currentCursor.remove();
-    currentCursor = null;
-    setTimeout(callback, 30);
-    return;
-  }
-
-  let i = 0;
-
-  function typeChar() {
-    if (i < content.length) {
-      textElement.textContent += content[i];
-      i++;
-      setTimeout(typeChar, Math.random() * 15 + 10);
-    } else {
-      setTimeout(() => {
-        if (currentCursor) currentCursor.remove();
-        currentCursor = null;
-        setTimeout(callback, 150);
-      }, 0);
-    }
-  }
-
-  setTimeout(typeChar, 80);
-}
-
-
-function animateDots(baseText, textElement, callback, instant = false) {
-
-  if (instant) {
-    textElement.textContent = baseText + "...";
-    setTimeout(callback, 20);
-    return;
-  }
-
-  textElement.textContent = baseText;
-  let dots = 0;
-
-  function step() {
-    if (dots < 3) {
-      textElement.textContent += ".";
-      dots++;
-      setTimeout(step, 180);
-    } else {
-      setTimeout(callback, 120);
-    }
-  }
-
-  step();
-}
-// Run sequence
-function runSequence(index = 0) {
-  if (index >= sequence.length) {
-    launchSite();
-    return;
-  }
-
-
-  const item = sequence[index];
-
-  const isFirstPhase = index < 1;
-  const isLastPhase = index === sequence.length - 1;
-  const isInstant = !(isFirstPhase || isLastPhase);
-
-  // small transition pause when entering "fast mode"
-  if (index === 3) {
-    setTimeout(() => processItem(), 200);
-    return;
-  }
-
-  processItem();
-
-  function processItem() {
-    if (item.type === "command") {
-      const { text } = createCommandLine();
-
-      typeCommand(
-        item.text,
-        text,
-        () => runSequence(index + 1),
-        isInstant
-      );
-
-    } else if (item.type === "output") {
-      const textEl = createOutputLine();
-
-      animateDots(
-        item.text,
-        textEl,
-        () => runSequence(index + 1),
-        isInstant
-      );
-
-    } else if (item.type === "output_nodot") {
-      const { text } = createOutputNodotLine();
-
-      typeCommand(
-        item.text,
-        text,
-        () => runSequence(index + 1),
-        isInstant
-      );
-    }
-  }
-}
-// Transition to main site
-function launchSite() {
-  setTimeout(() => {
-    const terminal = document.getElementById("terminal");
-    const appWindow = document.getElementById("appWindow");
-    const cracks = document.getElementById("crackedOverlay");
-
-    // fade out terminal
-    terminal.style.opacity = 0;
-
-    setTimeout(() => {
-      terminal.style.display = "none";
-
-      // show window
-      appWindow.classList.remove("hidden");
-      appWindow.classList.add("open");
-
-      // REMOVE cracks effect
-      cracks.style.opacity = 0;
-
-    }, 500);
-
-  }, 300);
-}
-
-
-document.getElementById("startPrompt").addEventListener("click", () => {
-    // hide landing
-    document.getElementById("landing").style.display = "none";
-
-    // show terminal and start sequence
-    document.getElementById("terminal").classList.remove("hidden");
-
-    runSequence(); // your existing terminal boot animation
-
-
+window.addEventListener("mousemove", (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
 });
 
+/* =========================
+   STARS
+========================= */
 
+const stars = [];
 
-document.querySelectorAll(".projectCard").forEach(card => {
-  const video = card.querySelector("video");
+class Star {
+    constructor() {
+        this.reset();
+    }
 
-  card.addEventListener("mouseenter", () => {
-    if (!video) return;
+    reset() {
+        this.x = (Math.random() - 0.5) * 1000;
+        this.y = (Math.random() - 0.5) * 1000;
+        this.z = Math.random() * 3000 + 1;
 
-    video.currentTime = 0;
-    video.play().catch(err => {
-      console.log("Video play blocked:", err);
+        this.px = 0;
+        this.py = 0;
+    }
+
+    update() {
+
+        this.z -= SPEED;
+
+        if (this.z <= 1) {
+            this.reset();
+            this.z = 3000;
+        }
+
+        const scale = FOV / this.z;
+
+        this.px = this.x * scale + canvas.width / 2;
+        this.py = this.y * scale + canvas.height / 2;
+    }
+
+    draw() {
+
+        const size = Math.max(0, 2 * (1 - this.z / 3000));
+
+        ctx.beginPath();
+        ctx.arc(this.px, this.py, size, 0, Math.PI * 2);
+
+        ctx.fillStyle = "rgba(0,255,200,0.8)";
+        ctx.fill();
+    }
+}
+
+for (let i = 0; i < STAR_COUNT; i++) {
+    stars.push(new Star());
+}
+
+/* =========================
+   SIGNAL SYSTEM
+========================= */
+
+const signals = [];
+
+window.addEventListener("click", () => {
+
+    signals.push({
+        x: mouse.x,
+        y: mouse.y,
+        radius: 10,
+        life: SIGNAL_LIFETIME
     });
-  });
-
-  card.addEventListener("mouseleave", () => {
-    if (!video) return;
-    video.pause();
-  });
 });
 
+/* =========================
+   AUTO SIGNAL SYSTEM (NEW)
+========================= */
 
-document.querySelectorAll("#navBar a").forEach(link => {
-  link.addEventListener("click", e => {
-    e.preventDefault();
+let autoTimer = 0;
 
-    const targetId = link.getAttribute("href").substring(1);
-    const target = document.getElementById(targetId);
-    const container = document.getElementById("windowContent");
+function spawnAutoSignal() {
 
-    if (target && container) {
-      container.scrollTo({
-        top: target.offsetTop,
-        behavior: "smooth"
-      });
-    }
-  });
-});
+    const centerBias = 0.6;
 
+    const x = Math.random() * canvas.width;
+    const y = Math.random() * canvas.height;
 
-document.querySelectorAll(".copyable").forEach(card => {
-  card.addEventListener("click", async () => {
-    const text = card.getAttribute("data-copy");
-
-    try {
-      await navigator.clipboard.writeText(text);
-
-      card.classList.add("copied");
-
-      setTimeout(() => {
-        card.classList.remove("copied");
-      }, 600);
-
-    } catch (err) {
-      console.log("Copy failed:", err);
-    }
-  });
-});
-
-
-const toast = document.getElementById("copyToast");
-
-function showToast(message = "COPIED TO CLIPBOARD") {
-  toast.textContent = message;
-  toast.classList.add("show");
-
-  setTimeout(() => {
-    toast.classList.remove("show");
-  }, 900);
+    signals.push({
+        x: x * (1 - centerBias) + mouse.x * centerBias,
+        y: y * (1 - centerBias) + mouse.y * centerBias,
+        radius: 10,
+        life: SIGNAL_LIFETIME
+    });
 }
 
-document.querySelectorAll(".copyable").forEach(card => {
-  card.addEventListener("click", async () => {
-    const text = card.getAttribute("data-copy");
+function updateAutoSignals() {
 
-    try {
-      await navigator.clipboard.writeText(text);
+    autoTimer++;
 
-      card.classList.add("copied");
-      showToast("COPIED");
-
-      setTimeout(() => {
-        card.classList.remove("copied");
-      }, 600);
-
-    } catch (err) {
-      showToast("COPY FAILED");
+    if (autoTimer > 160 + Math.random() * 120) {
+        spawnAutoSignal();
+        autoTimer = 0;
     }
-  });
+}
+
+/* =========================
+   SIGNAL UPDATE
+========================= */
+
+function updateSignals() {
+
+    for (let s of signals) {
+        s.radius += SIGNAL_SPEED;
+        s.life -= 1;
+    }
+
+    for (let i = signals.length - 1; i >= 0; i--) {
+        if (signals[i].life <= 0) {
+            signals.splice(i, 1);
+        }
+    }
+}
+
+/* =========================
+   WAVE CONNECTION SYSTEM
+========================= */
+
+function connect() {
+
+    const thickness = 40;
+
+    for (let s of signals) {
+
+        for (let i = 0; i < stars.length; i++) {
+
+            const a = stars[i];
+
+            const dx = a.px - s.x;
+            const dy = a.py - s.y;
+
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            const inWave = Math.abs(dist - s.radius) < thickness;
+
+            if (!inWave) continue;
+
+            let connections = 0;
+
+            for (let j = 0; j < stars.length; j++) {
+
+                if (i === j) continue;
+
+                const b = stars[j];
+
+                const dx2 = a.px - b.px;
+                const dy2 = a.py - b.py;
+
+                const dist2 = dx2 * dx2 + dy2 * dy2;
+
+                if (dist2 < 4000) {
+
+                    const alpha = 1 - dist2 / 4000;
+
+                    ctx.beginPath();
+                    ctx.moveTo(a.px, a.py);
+                    ctx.lineTo(b.px, b.py);
+
+                    ctx.strokeStyle = `rgba(0,255,200,${alpha * 0.4})`;
+                    ctx.lineWidth = 1;
+
+                    ctx.stroke();
+
+                    connections++;
+
+                    if (connections > 2) break;
+                }
+            }
+        }
+    }
+}
+
+/* =========================
+   LOOP
+========================= */
+
+function animate() {
+
+    ctx.fillStyle = "rgba(5,7,13,0.25)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let star of stars) {
+        star.update();
+        star.draw();
+    }
+
+    updateAutoSignals();
+    updateSignals();
+    connect();
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+/* =========================
+   RESIZE
+========================= */
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 });

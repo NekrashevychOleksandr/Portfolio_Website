@@ -2,282 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Booting...</title>
+  <title>Oleksandr Nekrashevych</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div id="copyToast">COPIED TO CLIPBOARD</div>
+<div id="background">
 
-<div id="contentWrapper">
-    <div id="landing">
-        <div id="landingContent">
-            <h1>OLEKSANDR NEKRASHEVYCH</h1>
-            <h2>COMPUTER ENGINEER</h2>
-            <p id="startPrompt">[CLICK TO CONTINUE]</p>
-        </div>
-    </div>
-</div>
+    <canvas id="bgCanvas"></canvas>
 
-<div id="terminal" class="hidden">
-  <div id="output"></div>
-</div>
+    <div class="vignette"></div>
+    <div class="grid"></div>
 
-<div id="appWindow" class="hidden">
-  
-  <div id="windowBar">
-    <span>system://oleksandr_nekrashevych</span>
-  </div>
+    <div id="center">
 
-  <div id="navBar">
-    <a href="#intro">INTRODUCTION</a>
-    <a href="#projects">PROJECTS</a>
-    <a href="#tech-stack">PROGRAMMING LANGUAGES & TOOLS</a>
-    <a href="#education">EDUCATION & CERTIFICATIONS</a>
-    <a href="#experience">EXPERIENCE</a>
-    <a href="#contactme">CONTACT ME</a>
-</div>
+        <h1>
+            OLEKSANDR<br>
+            NEKRASHEVYCH
+        </h1>
 
-  <div id="windowContent">
-    
+        <h2>
+            COMPUTER ENGINEERING
+            <span>•</span>
+            ROBOTICS
+            <span>•</span>
+            AUTOMATION
+        </h2>
 
-    <div id="intro" class="section">
-      <h2 class="sectionTitle">[ INTRODUCTION ]</h2>
+        <div class="line"></div>
 
-      <p>
-        I am a final year <span class="bright">Computer Engineering </span> student focused on building complete, end-to-end systems.
-      </p>
-
-      <p>
-        My work centers around <span class="bright">Robotics, Computer Vision, and Automation</span>, using <span class="bright">C++</span> for low-level systems and <span class="bright">Python</span> for high-level logic, alongside full-stack development with <span class="bright">React</span> and <span class="bright">PostgreSQL</span>.
-      </p>
-
-      <p>
-        I have two years of experience teaching robotics and software development, including game development in <span class="bright">Roblox Studio (Lua)</span>.
-      </p>
-
-      <p>
-        I am comfortable building systems from first principles when needed, while also leveraging modern tools and libraries for efficient development.
-      </p>
+        <p id="enter">[ CLICK TO ENTER ]</p>
 
     </div>
-
-  
-
-
-    <div id="projects" class="section">
-      <h2 class="sectionTitle">[ PROJECTS ]</h2>
-
-      <div class="projects">
-
-        <!-- CNC -->
-        <div class="projectCard">
-          <div class="projectMedia">
-            <img src="assets/projects/CNC_Machine_Image.png">
-            <video src="assets/projects/CNC_Machine_vid.mp4" muted loop></video>
-          </div>
-
-          <div class="projectInfo">
-            <h3>CNC Sketching Robot</h3>
-            <p class="projectType">[ COMPUTER VISION | EMBEDDED ]</p>
-            <p>Built a computer vision pipeline to extract facial features and convert them into CNC drawing instructions for automated sketching.</p>
-
-            <div class="techStack">
-              <span>Python</span><span>ESP32</span><span>Robotics</span>
-            </div>
-
-            
-          </div>
-        </div>
-
-        <!-- LINE FOLLOWER -->
-        <div class="projectCard">
-          <div class="projectMedia">
-            <img src="assets/projects/Robot_car.png">
-            <video src="assets/projects/Multi_colour_automnoumous_line_follwoign_robot.mp4" muted loop></video>
-          </div>
-
-          <div class="projectInfo">
-            <h3>Autonomous Line-Following Robot</h3>
-            <p class="projectType">[ CONTROL SYSTEMS | EMBEDDED ]</p>
-            <p>Designed a real-time control system using sensor feedback to achieve stable and accurate line tracking.</p>
-
-            <div class="techStack">
-              <span>Assembly</span><span>PIC18F45K22</span><span>Sensors</span>
-            </div>
-
-            
-          </div>
-        </div>
-
-        <!-- BOT -->
-        <div class="projectCard">
-          <div class="projectMedia">
-            <img src="assets/projects/Whatsapp_bot.png">
-            <video src="assets/projects/Whatsapp_bot.mp4" muted loop></video>
-          </div>
-
-          <div class="projectInfo">
-            <h3>WhatsApp Customer Service Agent</h3>
-            <p class="projectType">[ AUTOMATION ]</p>
-            <p>Developed an LLM-based system to automate customer interactions and escalate complex queries to human agents.</p>
-
-            <div class="techStack">
-              <span>JavaScript</span><span>Node.js</span>
-            </div>
-
-          
-          </div>
-        </div>
-
-        <!-- CHESS -->
-        <div class="projectCard">
-          <div class="projectMedia">
-            <img src="assets/projects/chess_bot.PNG">
-            <video src="assets/projects/chessbot.mp4" muted loop></video>
-          </div>
-
-          <div class="projectInfo">
-            <h3>General Digital Chess Agent</h3>
-            <p class="projectType">[ COMPUTER VISION | AUTOMATION ]</p>
-            <p>Built a system to detect chessboard state and execute moves using computer vision and decision algorithms.</p>
-
-            <div class="techStack">
-              <span>Python</span><span>OpenCV</span><span>Pyautogui</span>
-            </div>
-
-  
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-     <div id="tech-stack" class="section">
-      <h2 class="sectionTitle">[ PROGRAMMING LANGUAGES & TOOLS ]</h2>
-      
-        <div class="entry">
-
-          <p><span class="label">PROGRAMMING LANGUAGES:</span> 
-            <span class="bright">C++, Python, Java, Lua, JavaScript, HTML, CSS</span>
-          </p>
-
-          <p><span class="label">TOOLS & FRAMEWORKS:</span> 
-            <span class="bright">React, Node.js, PostgreSQL, GitHub, Webflow, Roblox Studio, Quartus, LTSpice, MATLAB, Arduino</span>
-          </p>
-
-        </div>
-      </div>
-
-
-    <div id="education" class="section">
-      <h2 class="sectionTitle">[ EDUCATION & CERTIFICATIONS ]</h2>
-      
-      <div class="entry">
-        <h3>[BEng] Bachelor of Computer Engineering</h3>
-        <p>University of Pretoria | 2026</p>
-      </div>
-
-      <div class="entry">
-        <h3>[CERT] Cisco Networking Academy</h3>
-        <ul class="cert-list">
-          <li>CCNP Enterprise: Core Networking  | 2022</li>
-          <li>CCNAv7: Enterprise Networking, Security & Automation  | 2021</li>
-          <li>CCNAv7: Switching, Routing & Wireless Essentials  | 2021</li>
-          <li>CCNA R&S: Routing & Switching Essentials  | 2020</li>
-          <li>CCNA R&S: Introduction to Networks  | 2020</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <h3>[NSC] National Senior Certificate</h3>
-        <p>Hoërskool Menlopark | 2019</p>
-      </div>
-    </div>
-
-  
-
-    <div id="experience" class="section">
-      <h2 class="sectionTitle">[ EXPERIENCE ]</h2>
-
-      <div class="entry">
-        <h3>[TUTORING] Cheery Robot Academy</h3>
-        <p>Robotics & Software Tutor | 2024 — PRESENT</p>
-        <ul>
-          <li>Taught robotics and software development using <span class="bright">Python</span> and <span class="bright">Roblox Studio (Lua)</span>.</li>
-          <li>Guided students through full project lifecycles, including game development and autonomous systems design.</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <h3>[FREELANCE] Upwork / Udemy Content</h3>
-        <p>PostgreSQL Consultant | 2024 — 2025</p>
-        <ul>
-          <li>Designed and developed database structures and technical content for a highly-rated <span class="bright">PostgreSQL</span> course.</li>
-          <li>Delivered high-quality work resulting in a <span class="bright">5★ client rating</span>.</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <h3>[FRONTEND & ROBOTICS] RunJumpFly</h3>
-        <p>Internship | 2024</p>
-        <ul>
-          <li>Developed responsive landing pages using <span class="bright">Webflow, HTML, CSS, and JavaScript</span>.</li>
-          <li>Built microcontroller-based systems for interactive lighting control applications.</li>
-        </ul>
-      </div>
-
-      <div class="entry">
-        <h3>[BACKEND] Keystone Solutions</h3>
-        <p>Vacation Work | 2022</p>
-        <ul>
-          <li>Migrated and modernized legacy backend systems using <span class="bright">Java Spring Boot</span>.</li>
-          <li>Refactored enterprise-level code to improve maintainability and performance.</li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div id="contactme" class="section">
-  <h2 class="sectionTitle">[ CONTACT ME ]</h2>
-
-  <div class="contactGrid">
-
-    <div class="contactCard copyable" data-copy="shonnekrashevych@gmail.com">
-      <div class="contactLabel">📧 EMAIL</div>
-      <div class="contactValue">shonnekrashevych@gmail.com</div>
-    </div>
-
-    <a href="https://github.com/NekrashevychOleksandr" target="_blank" class="contactCard">
-      <div class="contactLabel">💻 GITHUB</div>
-      <div class="contactValue">github.com/NekrashevychOleksandr</div>
-    </a>
-
-    <a href="https://www.linkedin.com/in/oleksandr-nekrashevych-26850a231/" target="_blank" class="contactCard">
-      <div class="contactLabel">🔗 LINKEDIN</div>
-      <div class="contactValue">linkedin.com/in/oleksandr-nekrashevych</div>
-    </a>
-
-    <div class="contactCard copyable" data-copy="+27665583327">
-      <div class="contactLabel">📱 PHONE / WHATSAPP</div>
-      <div class="contactValue">+27 66 558 3327</div>
-    </div>
-
-  </div>
-</div>
-
-
 
 </div>
-
-    
-
-  </div>
-
-</div>
-
-<!-- Cracked screen overlay -->
-<div id="crackedOverlay"></div>
 
 <script src="script.js"></script>
 </body>
