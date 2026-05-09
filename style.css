@@ -655,6 +655,9 @@ h2 {
     position: relative;
 
     width: min(1200px, 100%);
+    max-height: 90vh;
+
+    overflow-y: auto;
 
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
@@ -675,6 +678,10 @@ h2 {
 
 .modal-video video {
     width: 100%;
+
+    max-height: 75vh;
+
+    object-fit: contain;
 
     border-radius: 14px;
 }
@@ -938,4 +945,32 @@ h2 {
 
 .project-modal.active {
     display: flex;
+}
+
+.disabled-link {
+    cursor: not-allowed;
+
+    opacity: 0.55;
+
+    border-color: rgba(255,255,255,0.08);
+
+    color: rgba(255,255,255,0.6);
+
+    background: rgba(255,255,255,0.02);
+
+    pointer-events: none;
+}
+
+.disabled-link span {
+    display: block;
+
+    margin-top: 8px;
+
+    color: rgba(255,255,255,0.45);
+
+    font-size: 0.72rem;
+
+    letter-spacing: 0.04rem;
+
+    line-height: 1.5;
 }
