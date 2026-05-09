@@ -166,21 +166,18 @@ h2 {
     min-height: 100vh;
 
     opacity: 0;
-    transform: translateY(80px);
-
-    transition: 1.2s ease;
+    transition: opacity 1.2s ease;
 
     pointer-events: none;
 }
 
 #app-layout.active {
     opacity: 1;
-    transform: translateY(0);
     pointer-events: auto;
 }
 
 /* =========================
-   SIDEBAR (FIXED - PROPER SOLUTION)
+   SIDEBAR
 ========================= */
 
 #sidebar {
@@ -190,6 +187,8 @@ h2 {
 
     width: 320px;
     height: 100vh;
+
+    z-index: 9999;
 
     padding: 40px;
 
@@ -210,6 +209,7 @@ h2 {
 .sidebar-header h3 {
     font-size: 1.8rem;
     letter-spacing: 0.1rem;
+    line-height: 1.2;
 }
 
 .sidebar-header p {
@@ -218,7 +218,10 @@ h2 {
     color: rgba(255,255,255,0.6);
 }
 
-/* CONTACT */
+/* =========================
+   CONTACT FIX (IMPORTANT PART)
+========================= */
+
 .sidebar-contact {
     display: flex;
     flex-direction: column;
@@ -231,27 +234,39 @@ h2 {
     gap: 12px;
 }
 
-.sidebar-contact .contact-row img {
+/* icon wrapper */
+.sidebar-contact .contact-row a {
+    display: flex;
+    align-items: center;
+}
+
+/* ICON ONLY HOVER */
+.sidebar-contact .contact-row a img {
     width: 22px;
     height: 22px;
 
     opacity: 0.75;
     transition: 0.2s ease;
-
-    filter: drop-shadow(0 0 6px rgba(0,255,200,0.15));
 }
 
-.sidebar-contact .contact-row:hover img {
+/* ONLY ICON animates */
+.sidebar-contact .contact-row a:hover img {
     opacity: 1;
     transform: scale(1.15);
 }
 
-.sidebar-contact .contact-row span {
+/* TEXT NEVER CHANGES */
+.sidebar-contact .contact-text {
     color: rgba(255,255,255,0.75);
     font-size: 0.9rem;
+    cursor: text;          /* IMPORTANT */
+    user-select: text;     /* IMPORTANT */
 }
 
-/* SOCIAL */
+/* =========================
+   SOCIAL
+========================= */
+
 .social-row {
     display: flex;
     gap: 16px;
@@ -261,7 +276,6 @@ h2 {
 .social-row img {
     width: 22px;
     height: 22px;
-
     opacity: 0.7;
     transition: 0.2s ease;
 }
@@ -271,11 +285,14 @@ h2 {
     transform: scale(1.15);
 }
 
-/* NAV */
+/* =========================
+   NAV
+========================= */
+
 .sidebar-nav {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
 }
 
 .sidebar-nav a {
@@ -292,13 +309,17 @@ h2 {
 }
 
 /* =========================
-   CONTENT (IMPORTANT FIX)
+   CONTENT
 ========================= */
 
 #portfolio-content {
     margin-left: 320px;
 
-    padding: 100px 60px 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    padding: 60px 60px 200px;
 }
 
 /* =========================
@@ -306,8 +327,9 @@ h2 {
 ========================= */
 
 .section {
-    margin-bottom: 60px;
-    padding: 35px;
+    margin-bottom: 0;
+
+    padding: 20px 26px;
 
     border: 1px solid rgba(0,255,200,0.08);
     background: rgba(255,255,255,0.03);
@@ -316,7 +338,7 @@ h2 {
 
 .section h3 {
     color: rgba(0,255,200,0.9);
-    margin-bottom: 18px;
+    margin-bottom: 12px;
 }
 
 .section p {
@@ -334,16 +356,37 @@ h2 {
         position: relative;
         width: 100%;
         height: auto;
-        border-right: none;
-        border-bottom: 1px solid rgba(0,255,200,0.08);
     }
 
     #portfolio-content {
         margin-left: 0;
-        padding: 60px 20px 120px;
+        padding: 50px 20px 120px;
     }
 
     h1 {
         font-size: clamp(2.5rem, 10vw, 5rem);
     }
+}
+
+.resume-download {
+    display: inline-block;
+    margin-top: 12px;
+
+    color: rgba(0,255,200,0.9);
+    font-size: 0.85rem;
+    letter-spacing: 0.12rem;
+
+    text-decoration: none;
+
+    padding: 8px 12px;
+    border: 1px solid rgba(0,255,200,0.25);
+    border-radius: 4px;
+
+    transition: 0.2s ease;
+}
+
+.resume-download:hover {
+    background: rgba(0,255,200,0.08);
+    border-color: rgba(0,255,200,0.6);
+    transform: translateY(-1px);
 }
