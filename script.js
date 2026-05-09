@@ -20,11 +20,6 @@ const STAR_COUNT = 200;
    STATE
 ========================= */
 
-// 0 = intro center
-// 1 = moving intro to top-left
-// 2 = idle (intro parked top-left)
-// 3 = warp transition
-// 4 = portfolio open
 let state = 0;
 let t = 0;
 
@@ -36,38 +31,37 @@ const intro = document.getElementById("center");
 const portfolio = document.getElementById("portfolio");
 
 /* =========================
-   MOUSE
-========================= */
-
-const mouse = {
-    x: 0,
-    y: 0
-};
-
-window.addEventListener("mousemove", (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-});
-
-/* =========================
    INPUT
 ========================= */
 
 document.getElementById("enter").addEventListener("click", () => {
-
-    // first click: move intro to corner
     if (state === 0) {
         state = 1;
         t = 0;
-        return;
-    }
-
-    // second click: open portfolio
-    if (state === 2) {
+    } else if (state === 2) {
         state = 3;
         t = 0;
     }
 });
+
+/* =========================
+   HELPERS
+========================= */
+
+function easeInOut(p) {
+    return p * p * (3 - 2 * p);
+}
+
+/* IMPORTANT: keeps visual anchor consistent */
+function getScaledOffset(scale, paddingX, paddingY) {
+    const w = intro.offsetWidth * scale;
+    const h = intro.offsetHeight * scale;
+
+    return {
+        x: paddingX - (w * 0.5),
+        y: paddingY - (h * 0.5)
+    };
+}
 
 /* =========================
    STATE UPDATE
@@ -78,24 +72,33 @@ function updateState() {
     t += 0.01;
 
     /* =========================
-       INTRO → TOP LEFT TRANSITION
+       INTRO → TOP LEFT
     ========================= */
     if (state === 1) {
 
-        const p = Math.min(t / 1.0, 1); // slower + smoother transition
-
-        // smoother easing (important fix)
-        const ease = p * p * (3 - 2 * p);
+        const p = Math.min(t / 1.0, 1);
+        const ease = easeInOut(p);
 
         const scale = 1 - ease * 0.65;
 
-        const x = ease * (-window.innerWidth / 2 + 40);
-        const y = ease * (-window.innerHeight / 2 + 40);
+        const paddingX = 160;
+        const paddingY = 80;
+
+        const startX = window.innerWidth / 2 - intro.offsetWidth / 2;
+        const startY = window.innerHeight / 2 - intro.offsetHeight / 2;
+
+        const offset = getScaledOffset(scale, paddingX, paddingY);
+
+        const x = startX + (offset.x - startX) * ease;
+        const y = startY + (offset.y - startY) * ease;
+
+        intro.style.position = "fixed";
+        intro.style.left = "0px";
+        intro.style.top = "0px";
+        intro.style.transformOrigin = "top left";
 
         intro.style.transform =
             `translate(${x}px, ${y}px) scale(${scale})`;
-
-        intro.style.opacity = String(1);
 
         SPEED = baseSpeed + ease * 20;
         SIGNAL_SPEED = 12 + ease * 8;
@@ -103,33 +106,40 @@ function updateState() {
         if (p >= 1) {
             state = 2;
             t = 0;
-
-            intro.style.position = "fixed";
-            intro.style.top = "20px";
-            intro.style.left = "20px";
-            intro.style.transformOrigin = "top left";
         }
     }
 
     /* =========================
-       IDLE STATE (intro parked top-left)
+       LOCKED TOP LEFT (FIXED)
     ========================= */
     else if (state === 2) {
 
         SPEED = baseSpeed;
         SIGNAL_SPEED = 12;
 
-        intro.style.transform = "scale(0.35)";
+        const scale = 0.35;
+
+        const paddingX = 160;
+        const paddingY = 80;
+
+        const offset = getScaledOffset(scale, paddingX, paddingY);
+
+        intro.style.position = "fixed";
+        intro.style.left = "0px";
+        intro.style.top = "0px";
+        intro.style.transformOrigin = "top left";
+
+        intro.style.transform =
+            `translate(${offset.x}px, ${offset.y}px) scale(${scale})`;
     }
 
     /* =========================
-       WARP INTO PORTFOLIO
+       PORTFOLIO TRANSITION
     ========================= */
     else if (state === 3) {
 
-        const p = Math.min(t / 1.6, 1); // longer warp (fix)
-
-        const ease = p * p * (3 - 2 * p);
+        const p = Math.min(t / 1.6, 1);
+        const ease = easeInOut(p);
 
         SPEED = baseSpeed + ease * 45;
         SIGNAL_SPEED = 12 + ease * 10;
@@ -177,7 +187,6 @@ class Star {
     }
 
     update() {
-
         this.z -= SPEED;
 
         if (this.z <= 1) {
@@ -192,7 +201,6 @@ class Star {
     }
 
     draw() {
-
         const size = Math.max(0, 2 * (1 - this.z / 3000));
 
         ctx.beginPath();
@@ -214,7 +222,6 @@ for (let i = 0; i < STAR_COUNT; i++) {
 const signals = [];
 
 window.addEventListener("click", (e) => {
-
     signals.push({
         x: e.clientX,
         y: e.clientY,
@@ -230,7 +237,6 @@ function updateAutoSignals() {
     autoTimer++;
 
     if (autoTimer > 160 + Math.random() * 120) {
-
         signals.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
@@ -265,7 +271,6 @@ function connect() {
     const thickness = 40;
 
     for (let s of signals) {
-
         for (let i = 0; i < stars.length; i++) {
 
             const a = stars[i];
@@ -275,9 +280,7 @@ function connect() {
 
             const dist = Math.sqrt(dx * dx + dy * dy);
 
-            const inWave = Math.abs(dist - s.radius) < thickness;
-
-            if (!inWave) continue;
+            if (Math.abs(dist - s.radius) >= thickness) continue;
 
             let connections = 0;
 
@@ -305,9 +308,7 @@ function connect() {
 
                     ctx.stroke();
 
-                    connections++;
-
-                    if (connections > 2) break;
+                    if (++connections > 2) break;
                 }
             }
         }
