@@ -10,18 +10,16 @@ html, body {
     overflow-y: auto;
     background: #05070d;
     font-family: Arial, sans-serif;
-    user-select: text;
 }
 
 /* =========================
-   BACKGROUND LAYER
+   BACKGROUND
 ========================= */
 
 #background {
     position: fixed;
     inset: 0;
     z-index: 0;
-
     overflow: hidden;
     pointer-events: none;
 
@@ -36,7 +34,6 @@ html, body {
     inset: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none;
 }
 
 /* GRID */
@@ -49,10 +46,6 @@ html, body {
         linear-gradient(90deg, rgba(0,255,200,0.03) 1px, transparent 1px);
 
     background-size: 80px 80px;
-
-    mask-image: radial-gradient(circle at center,
-        black 35%,
-        transparent 85%);
 }
 
 /* VIGNETTE */
@@ -76,59 +69,114 @@ html, body {
 
     display: flex;
     flex-direction: column;
-
     align-items: center;
     justify-content: center;
-
     text-align: center;
 
-    transition: opacity 1s ease, transform 1s ease;
+    pointer-events: auto;
 }
 
 h1 {
     color: white;
     font-size: clamp(3rem, 7vw, 6.5rem);
     letter-spacing: 0.2rem;
-    line-height: 0.95;
-    text-shadow: 0 0 25px rgba(0,255,200,0.12);
 }
 
 h2 {
     margin-top: 2rem;
     color: rgba(255,255,255,0.7);
     font-size: 0.95rem;
-    letter-spacing: 0.3rem;
+    letter-spacing: 0.2rem;
 }
 
-h2 span {
-    color: rgba(0,255,200,0.7);
-    margin: 0 0.5rem;
+/* =========================
+   CONTACT BAR (IMPROVED)
+========================= */
+
+.contact {
+    margin-top: 1.2rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    gap: 0.9rem;
 }
+
+/* single horizontal strip */
+.contact-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    flex-wrap: wrap; /* prevents overflow on small screens */
+}
+
+/* text + icons alignment */
+.contact-text {
+    color: rgba(255,255,255,0.78);
+    font-size: 0.95rem;
+
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* clickable icons */
+.contact-row a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+/* icon styling */
+.contact-row img {
+    width: 24px;
+    height: 24px;
+
+    opacity: 0.75;
+    transition: 0.2s ease;
+
+    filter: drop-shadow(0 0 6px rgba(0,255,200,0.15));
+}
+
+.contact-row img:hover {
+    opacity: 1;
+    transform: scale(1.18);
+}
+
+/* =========================
+   LINE + ENTER
+========================= */
 
 .line {
     width: 140px;
     height: 1px;
-    margin: 2.5rem auto;
+    margin: 2rem auto;
+
     background: rgba(0,255,200,0.35);
 }
 
 #enter {
     color: rgba(0,255,200,0.7);
-    letter-spacing: 0.25rem;
     cursor: pointer;
-    animation: pulse 2.5s infinite;
-    pointer-events: auto;
+
+    letter-spacing: 0.2rem;
+
+    transition: 0.2s ease;
 }
 
-/* INTRO EXIT (IMPORTANT FIX: REMOVE FROM FLOW) */
-body.entered #center {
-    opacity: 0;
-    transform: translateX(-80px) scale(1.05);
-    pointer-events: none;
+#enter:hover {
+    color: rgba(0,255,200,1);
+    transform: scale(1.05);
 }
 
 /* =========================
-   PORTFOLIO (SCROLLABLE FIX)
+   PORTFOLIO
 ========================= */
 
 #portfolio {
@@ -138,69 +186,30 @@ body.entered #center {
     width: 100%;
     min-height: 100vh;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
     padding: 120px 20px 200px;
 
     color: white;
 
-    opacity: 0;
-    transform: translateX(120px);
-
-    transition: opacity 1.2s ease, transform 1.2s ease;
-
-    /* CRITICAL FIXES */
-    overflow-y: visible;
-    user-select: text;
     pointer-events: auto;
 }
 
-body.entered #portfolio {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* =========================
-   SECTIONS
-========================= */
-
+/* optional reuse if you fill later */
 .section {
-    width: 100%;
     max-width: 850px;
-
     margin: 0 auto 60px auto;
-
-    text-align: left;
 
     padding: 25px;
 
     border: 1px solid rgba(0,255,200,0.08);
-    border-radius: 10px;
-
     background: rgba(255,255,255,0.02);
-
-    user-select: text;
 }
 
 .section h3 {
     color: rgba(0,255,200,0.85);
     margin-bottom: 12px;
-    letter-spacing: 0.15rem;
 }
 
 .section p {
-    line-height: 1.6;
     color: rgba(255,255,255,0.8);
-}
-
-/* =========================
-   ANIMATION
-========================= */
-
-@keyframes pulse {
-    0% { opacity: 0.3; }
-    50% { opacity: 1; }
-    100% { opacity: 0.3; }
+    line-height: 1.6;
 }

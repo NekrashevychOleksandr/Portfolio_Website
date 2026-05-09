@@ -20,6 +20,11 @@ const STAR_COUNT = 200;
    STATE
 ========================= */
 
+// 0 = intro center
+// 1 = moving intro to top-left
+// 2 = idle (intro parked top-left)
+// 3 = warp transition
+// 4 = portfolio open
 let state = 0;
 let t = 0;
 
@@ -31,26 +36,38 @@ const intro = document.getElementById("center");
 const portfolio = document.getElementById("portfolio");
 
 /* =========================
-   INPUT
+   MOUSE
 ========================= */
+
+const mouse = {
+    x: 0,
+    y: 0
+};
 
 window.addEventListener("mousemove", (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
 });
 
-document.getElementById("enter").addEventListener("click", () => {
-    if (state === 0) state = 1;
-});
-
 /* =========================
-   MOUSE
+   INPUT
 ========================= */
 
-const mouse = {
-    x: canvas.width / 2,
-    y: canvas.height / 2
-};
+document.getElementById("enter").addEventListener("click", () => {
+
+    // first click: move intro to corner
+    if (state === 0) {
+        state = 1;
+        t = 0;
+        return;
+    }
+
+    // second click: open portfolio
+    if (state === 2) {
+        state = 3;
+        t = 0;
+    }
+});
 
 /* =========================
    STATE UPDATE
@@ -60,52 +77,65 @@ function updateState() {
 
     t += 0.01;
 
-    /* INTRO EXIT */
+    /* =========================
+       INTRO → TOP LEFT TRANSITION
+    ========================= */
     if (state === 1) {
 
-        const p = Math.min(t / 0.4, 1);
+        const p = Math.min(t / 1.0, 1); // slower + smoother transition
 
-        const drift = p * 500;
-        const curve = Math.sin(p * Math.PI) * 120;
+        // smoother easing (important fix)
+        const ease = p * p * (3 - 2 * p);
+
+        const scale = 1 - ease * 0.65;
+
+        const x = ease * (-window.innerWidth / 2 + 40);
+        const y = ease * (-window.innerHeight / 2 + 40);
 
         intro.style.transform =
-            `translateX(${-drift - curve}px) scale(${1 + p * 0.15})`;
+            `translate(${x}px, ${y}px) scale(${scale})`;
 
-        intro.style.opacity = String(1 - p * 1.5);
+        intro.style.opacity = String(1);
 
-        SPEED = baseSpeed;
+        SPEED = baseSpeed + ease * 20;
+        SIGNAL_SPEED = 12 + ease * 8;
 
         if (p >= 1) {
             state = 2;
             t = 0;
 
-            /* ✅ FIX: REMOVE INTRO FROM INTERACTION FLOW */
-            intro.style.display = "none";
-            intro.style.pointerEvents = "none";
+            intro.style.position = "fixed";
+            intro.style.top = "20px";
+            intro.style.left = "20px";
+            intro.style.transformOrigin = "top left";
         }
     }
 
-    /* WARP */
+    /* =========================
+       IDLE STATE (intro parked top-left)
+    ========================= */
     else if (state === 2) {
 
-        const p = Math.min(t / 0.6, 1);
+        SPEED = baseSpeed;
+        SIGNAL_SPEED = 12;
 
-        SPEED = baseSpeed + p * 30;
-        SIGNAL_SPEED = 12 + p * 8;
-
-        if (p >= 1) {
-            state = 3;
-            t = 0;
-        }
+        intro.style.transform = "scale(0.35)";
     }
 
-    /* SETTLE */
+    /* =========================
+       WARP INTO PORTFOLIO
+    ========================= */
     else if (state === 3) {
 
-        const p = Math.min(t / 0.6, 1);
+        const p = Math.min(t / 1.6, 1); // longer warp (fix)
 
-        SPEED = baseSpeed + (1 - p) * 30;
-        SIGNAL_SPEED = 12;
+        const ease = p * p * (3 - 2 * p);
+
+        SPEED = baseSpeed + ease * 45;
+        SIGNAL_SPEED = 12 + ease * 10;
+
+        portfolio.style.opacity = String(ease);
+        portfolio.style.transform = `translateX(${(1 - ease) * 500}px)`;
 
         if (p >= 1) {
             state = 4;
@@ -113,14 +143,16 @@ function updateState() {
         }
     }
 
-    /* PORTFOLIO */
+    /* =========================
+       PORTFOLIO OPEN
+    ========================= */
     else if (state === 4) {
 
-        const p = Math.min(t / 0.5, 1);
+        SPEED = baseSpeed;
+        SIGNAL_SPEED = 12;
 
-        portfolio.style.opacity = String(p);
-        portfolio.style.transform =
-            `translateX(${(1 - p) * 600}px)`;
+        portfolio.style.opacity = "1";
+        portfolio.style.transform = "translateX(0px)";
     }
 }
 
