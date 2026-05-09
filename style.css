@@ -271,7 +271,6 @@ h2 {
 .social-row {
     display: flex;
     gap: 16px;
-    margin-top: 10px;
 }
 
 .social-row img {
