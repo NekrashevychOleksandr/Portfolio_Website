@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Oleksandr Nekrashevych</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Oleksandr Nekrashevych</title>
+    <link rel="icon" type="image/png" href="assets/favi.png">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
+<!-- BACKGROUND -->
 <div id="background">
-
     <canvas id="bgCanvas"></canvas>
-
-    <div class="vignette"></div>
     <div class="grid"></div>
+    <div class="vignette"></div>
+</div>
 
-    <!-- INTRO -->
-    <div id="center">
+<!-- INTRO -->
+<section id="intro-screen">
+
+    <div id="intro-content">
 
         <h1>
             OLEKSANDR<br>
@@ -24,61 +28,121 @@
         </h1>
 
         <h2>
-            SOFTWARE ENGINEERING
+            COMPUTER ENGINEERING
             <span>•</span>
             ROBOTICS
             <span>•</span>
             AUTOMATION
         </h2>
 
-        <!-- CONTACT -->
-        <div class="contact">
+        <div class="contact-row">
 
-            <div class="contact-row">
-                
+            <a href="https://wa.me/27665583327" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+            </a>
+            <div class="contact-text">+27 66 558 3327</div>
 
-                <a href="https://wa.me/27665583327" target="_blank">
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="whatsapp">
-                </a>
+            <a href="mailto:shonnekrashevych@gmail.com">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png">
+            </a>
+            <div class="contact-text">shonnekrashevych@gmail.com</div>
 
-                <div class="contact-text">
-                    +27 66 558 3327
-                </div>
+            <a href="https://linkedin.com/in/oleksandr-nekrashevych" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png">
+            </a>
 
-                <a href="mailto:shonnekrashevych@gmail.com" target="_blank">
-                    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="email">
-                </a>
-
-                <div class="contact-text">
-                    shonnekrashevych@gmail.com
-                </div>
-
-                <a href="https://linkedin.com/in/oleksandr-nekrashevych" target="_blank">
-                    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="linkedin">
-                </a>
-
-                <a href="https://github.com/NekrashevychOleksandr" target="_blank">
-                    <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png" alt="github">
-                </a>
-
-
-            </div>
+            <a href="https://github.com/NekrashevychOleksandr" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png">
+            </a>
 
         </div>
 
         <div class="line"></div>
 
         <p id="enter">[ CLICK TO ENTER ]</p>
-    </div>
-
-    <!-- PORTFOLIO -->
-    <div id="portfolio">
-
 
     </div>
 
-</div>
+</section>
+
+<!-- APP -->
+<section id="app-layout">
+
+    <aside id="sidebar">
+
+        <div class="sidebar-inner">
+
+            <div class="sidebar-header">
+                <h3>OLEKSANDR<br>NEKRASHEVYCH</h3>
+                <p>
+                    COMPUTER ENGINEERING • ROBOTICS • AUTOMATION
+                </p>
+            </div>
+
+            <div class="sidebar-contact">
+
+                <a class="contact-row" href="https://wa.me/27665583327">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
+                    <span>+27 66 558 3327</span>
+                </a>
+
+                <a class="contact-row" href="mailto:shonnekrashevych@gmail.com">
+                    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png">
+                    <span>shonnekrashevych@gmail.com</span>
+                </a>
+
+                <div class="social-row">
+
+                    <a href="https://linkedin.com/in/oleksandr-nekrashevych">
+                        <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png">
+                    </a>
+
+                    <a href="https://github.com/NekrashevychOleksandr">
+                        <img src="https://cdn-icons-png.flaticon.com/512/733/733553.png">
+                    </a>
+
+                </div>
+
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#about">ABOUT</a>
+                <a href="#projects">PROJECTS</a>
+                <a href="#skills">SKILLS</a>
+                <a href="#contact">CONTACT</a>
+            </nav>
+
+        </div>
+
+    </aside>
+
+    <main id="portfolio-content">
+
+        <section class="section" id="about">
+            <h3>ABOUT</h3>
+            <p>Software engineering, robotics, embedded systems, automation and intelligent systems development.</p>
+        </section>
+
+        <section class="section" id="projects">
+            <h3>PROJECTS</h3>
+            <p>Add your projects here.</p>
+        </section>
+
+        <section class="section" id="skills">
+            <h3>SKILLS</h3>
+            <p>Python, C++, Embedded Systems, Robotics, Computer Vision, Linux, Automation.</p>
+        </section>
+
+        <section class="section" id="contact">
+            <h3>CONTACT</h3>
+            <p>Open to engineering opportunities.</p>
+        </section>
+
+    </main>
+
+</section>
 
 <script src="script.js"></script>
+
 </body>
 </html>

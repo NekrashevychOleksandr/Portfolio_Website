@@ -5,166 +5,54 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 /* =========================
+   ELEMENTS
+========================= */
+
+const enterBtn = document.getElementById("enter");
+const introScreen = document.getElementById("intro-screen");
+const appLayout = document.getElementById("app-layout");
+
+/* =========================
    SETTINGS
 ========================= */
 
-const baseSpeed = 5;
+const STAR_COUNT = 220;
+
+const baseSpeed = 4;
 let SPEED = baseSpeed;
 
 let SIGNAL_SPEED = 12;
 const SIGNAL_LIFETIME = 90;
 
-const STAR_COUNT = 200;
-
 /* =========================
    STATE
 ========================= */
 
-let state = 0;
-let t = 0;
+let entered = false;
+let transitionT = 0;
+let transitionPhase = 0; // 0 idle, 1 entering, 2 settled
 
 /* =========================
-   ELEMENTS
+   ENTER HANDLER
 ========================= */
 
-const intro = document.getElementById("center");
-const portfolio = document.getElementById("portfolio");
+enterBtn.addEventListener("click", () => {
 
-/* =========================
-   INPUT
-========================= */
+    if (entered) return;
 
-document.getElementById("enter").addEventListener("click", () => {
-    if (state === 0) {
-        state = 1;
-        t = 0;
-    } else if (state === 2) {
-        state = 3;
-        t = 0;
-    }
+    entered = true;
+    transitionPhase = 1;
+    transitionT = 0;
+
+    // hide intro immediately (no delay fighting CSS)
+    introScreen.classList.add("hidden");
+
+    // show app slightly after (lets CSS breathe)
+    setTimeout(() => {
+        appLayout.classList.add("active");
+        transitionPhase = 2;
+    }, 200);
 });
-
-/* =========================
-   HELPERS
-========================= */
-
-function easeInOut(p) {
-    return p * p * (3 - 2 * p);
-}
-
-/* IMPORTANT: keeps visual anchor consistent */
-function getScaledOffset(scale, paddingX, paddingY) {
-    const w = intro.offsetWidth * scale;
-    const h = intro.offsetHeight * scale;
-
-    return {
-        x: paddingX - (w * 0.5),
-        y: paddingY - (h * 0.5)
-    };
-}
-
-/* =========================
-   STATE UPDATE
-========================= */
-
-function updateState() {
-
-    t += 0.01;
-
-    /* =========================
-       INTRO → TOP LEFT
-    ========================= */
-    if (state === 1) {
-
-        const p = Math.min(t / 1.0, 1);
-        const ease = easeInOut(p);
-
-        const scale = 1 - ease * 0.65;
-
-        const paddingX = 160;
-        const paddingY = 80;
-
-        const startX = window.innerWidth / 2 - intro.offsetWidth / 2;
-        const startY = window.innerHeight / 2 - intro.offsetHeight / 2;
-
-        const offset = getScaledOffset(scale, paddingX, paddingY);
-
-        const x = startX + (offset.x - startX) * ease;
-        const y = startY + (offset.y - startY) * ease;
-
-        intro.style.position = "fixed";
-        intro.style.left = "0px";
-        intro.style.top = "0px";
-        intro.style.transformOrigin = "top left";
-
-        intro.style.transform =
-            `translate(${x}px, ${y}px) scale(${scale})`;
-
-        SPEED = baseSpeed + ease * 20;
-        SIGNAL_SPEED = 12 + ease * 8;
-
-        if (p >= 1) {
-            state = 2;
-            t = 0;
-        }
-    }
-
-    /* =========================
-       LOCKED TOP LEFT (FIXED)
-    ========================= */
-    else if (state === 2) {
-
-        SPEED = baseSpeed;
-        SIGNAL_SPEED = 12;
-
-        const scale = 0.35;
-
-        const paddingX = 160;
-        const paddingY = 80;
-
-        const offset = getScaledOffset(scale, paddingX, paddingY);
-
-        intro.style.position = "fixed";
-        intro.style.left = "0px";
-        intro.style.top = "0px";
-        intro.style.transformOrigin = "top left";
-
-        intro.style.transform =
-            `translate(${offset.x}px, ${offset.y}px) scale(${scale})`;
-    }
-
-    /* =========================
-       PORTFOLIO TRANSITION
-    ========================= */
-    else if (state === 3) {
-
-        const p = Math.min(t / 1.6, 1);
-        const ease = easeInOut(p);
-
-        SPEED = baseSpeed + ease * 45;
-        SIGNAL_SPEED = 12 + ease * 10;
-
-        portfolio.style.opacity = String(ease);
-        portfolio.style.transform = `translateX(${(1 - ease) * 500}px)`;
-
-        if (p >= 1) {
-            state = 4;
-            t = 0;
-        }
-    }
-
-    /* =========================
-       PORTFOLIO OPEN
-    ========================= */
-    else if (state === 4) {
-
-        SPEED = baseSpeed;
-        SIGNAL_SPEED = 12;
-
-        portfolio.style.opacity = "1";
-        portfolio.style.transform = "translateX(0px)";
-    }
-}
 
 /* =========================
    STARS
@@ -173,13 +61,14 @@ function updateState() {
 const stars = [];
 
 class Star {
+
     constructor() {
         this.reset();
     }
 
     reset() {
-        this.x = (Math.random() - 0.5) * 1000;
-        this.y = (Math.random() - 0.5) * 1000;
+        this.x = (Math.random() - 0.5) * 1400;
+        this.y = (Math.random() - 0.5) * 1400;
         this.z = Math.random() * 3000 + 1;
 
         this.px = 0;
@@ -187,6 +76,7 @@ class Star {
     }
 
     update() {
+
         this.z -= SPEED;
 
         if (this.z <= 1) {
@@ -194,13 +84,14 @@ class Star {
             this.z = 3000;
         }
 
-        const scale = 600 / this.z;
+        const scale = 700 / this.z;
 
         this.px = this.x * scale + canvas.width / 2;
         this.py = this.y * scale + canvas.height / 2;
     }
 
     draw() {
+
         const size = Math.max(0, 2 * (1 - this.z / 3000));
 
         ctx.beginPath();
@@ -216,7 +107,7 @@ for (let i = 0; i < STAR_COUNT; i++) {
 }
 
 /* =========================
-   SIGNAL SYSTEM
+   SIGNALS
 ========================= */
 
 const signals = [];
@@ -236,7 +127,8 @@ function updateAutoSignals() {
 
     autoTimer++;
 
-    if (autoTimer > 160 + Math.random() * 120) {
+    if (autoTimer > 140 + Math.random() * 100) {
+
         signals.push({
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height,
@@ -271,6 +163,7 @@ function connect() {
     const thickness = 40;
 
     for (let s of signals) {
+
         for (let i = 0; i < stars.length; i++) {
 
             const a = stars[i];
@@ -316,6 +209,40 @@ function connect() {
 }
 
 /* =========================
+   TRANSITION LOGIC (FIXED)
+========================= */
+
+function updateTransition() {
+
+    // idle state
+    if (!entered) {
+        SPEED += (baseSpeed - SPEED) * 0.05;
+        SIGNAL_SPEED += (12 - SIGNAL_SPEED) * 0.05;
+        return;
+    }
+
+    // entering burst
+    if (transitionPhase === 1) {
+
+        transitionT += 0.03;
+
+        const burst = Math.sin(transitionT * 4);
+
+        SPEED += ((baseSpeed + 30 + burst * 5) - SPEED) * 0.06;
+        SIGNAL_SPEED += (22 - SIGNAL_SPEED) * 0.06;
+
+        return;
+    }
+
+    // settled state (portfolio open)
+    if (transitionPhase === 2) {
+
+        SPEED += (baseSpeed - SPEED) * 0.04;
+        SIGNAL_SPEED += (12 - SIGNAL_SPEED) * 0.04;
+    }
+}
+
+/* =========================
    LOOP
 ========================= */
 
@@ -324,7 +251,7 @@ function animate() {
     ctx.fillStyle = "rgba(5,7,13,0.25)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    updateState();
+    updateTransition();
 
     for (let star of stars) {
         star.update();

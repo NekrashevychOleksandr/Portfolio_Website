@@ -4,12 +4,12 @@
     box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
+html,
+body {
     background: #05070d;
+    color: white;
     font-family: Arial, sans-serif;
+    overflow-x: hidden;
 }
 
 /* =========================
@@ -20,12 +20,11 @@ html, body {
     position: fixed;
     inset: 0;
     z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
 
-    background: radial-gradient(circle at center,
-        rgba(0,255,200,0.06),
-        transparent 60%),
+    background:
+        radial-gradient(circle at center,
+            rgba(0, 255, 200, 0.06),
+            transparent 60%),
         #05070d;
 }
 
@@ -36,7 +35,6 @@ html, body {
     height: 100%;
 }
 
-/* GRID */
 .grid {
     position: absolute;
     inset: 0;
@@ -48,36 +46,46 @@ html, body {
     background-size: 80px 80px;
 }
 
-/* VIGNETTE */
 .vignette {
     position: absolute;
     inset: 0;
 
-    background: radial-gradient(circle,
-        transparent 55%,
-        rgba(0,0,0,0.92) 100%);
+    background:
+        radial-gradient(circle,
+            transparent 55%,
+            rgba(0,0,0,0.92) 100%);
 }
 
 /* =========================
    INTRO
 ========================= */
 
-#center {
+#intro-screen {
     position: fixed;
     inset: 0;
     z-index: 10;
 
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
 
-    pointer-events: auto;
+    opacity: 1;
+    transform: scale(1);
+
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#intro-screen.hidden {
+    opacity: 0;
+    transform: scale(0.92) translateY(-30px);
+    pointer-events: none;
+}
+
+#intro-content {
+    text-align: center;
 }
 
 h1 {
-    color: white;
     font-size: clamp(3rem, 7vw, 6.5rem);
     letter-spacing: 0.2rem;
 }
@@ -90,51 +98,21 @@ h2 {
 }
 
 /* =========================
-   CONTACT BAR (IMPROVED)
+   INTRO CONTACT
 ========================= */
 
-.contact {
-    margin-top: 1.2rem;
+#intro-screen .contact-row {
+    margin-top: 1.5rem;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap: 0.9rem;
-}
-
-/* single horizontal strip */
-.contact-row {
     display: flex;
     align-items: center;
     justify-content: center;
 
+    flex-wrap: wrap;
     gap: 14px;
-
-    flex-wrap: wrap; /* prevents overflow on small screens */
 }
 
-/* text + icons alignment */
-.contact-text {
-    color: rgba(255,255,255,0.78);
-    font-size: 0.95rem;
-
-    line-height: 1;
-    white-space: nowrap;
-}
-
-/* clickable icons */
-.contact-row a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    pointer-events: auto;
-    cursor: pointer;
-}
-
-/* icon styling */
-.contact-row img {
+#intro-screen .contact-row a img {
     width: 24px;
     height: 24px;
 
@@ -144,29 +122,31 @@ h2 {
     filter: drop-shadow(0 0 6px rgba(0,255,200,0.15));
 }
 
-.contact-row img:hover {
+#intro-screen .contact-row a:hover img {
     opacity: 1;
-    transform: scale(1.18);
+    transform: scale(1.15);
+}
+
+#intro-screen .contact-text {
+    color: rgba(255,255,255,0.8);
+    white-space: nowrap;
 }
 
 /* =========================
-   LINE + ENTER
+   ENTER
 ========================= */
 
 .line {
-    width: 140px;
+    width: 150px;
     height: 1px;
     margin: 2rem auto;
-
     background: rgba(0,255,200,0.35);
 }
 
 #enter {
-    color: rgba(0,255,200,0.7);
+    color: rgba(0,255,200,0.75);
     cursor: pointer;
-
     letter-spacing: 0.2rem;
-
     transition: 0.2s ease;
 }
 
@@ -176,42 +156,194 @@ h2 {
 }
 
 /* =========================
-   PORTFOLIO
+   APP LAYOUT
 ========================= */
 
-#portfolio {
+#app-layout {
     position: relative;
     z-index: 5;
 
-    width: 100%;
     min-height: 100vh;
 
-    padding: 120px 20px 200px;
+    opacity: 0;
+    transform: translateY(80px);
 
-    color: white;
+    transition: 1.2s ease;
 
+    pointer-events: none;
+}
+
+#app-layout.active {
+    opacity: 1;
+    transform: translateY(0);
     pointer-events: auto;
 }
 
-/* optional reuse if you fill later */
-.section {
-    max-width: 850px;
-    margin: 0 auto 60px auto;
+/* =========================
+   SIDEBAR (FIXED - PROPER SOLUTION)
+========================= */
 
-    padding: 25px;
+#sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 320px;
+    height: 100vh;
+
+    padding: 40px;
+
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(14px);
+
+    border-right: 1px solid rgba(0,255,200,0.08);
+}
+
+.sidebar-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* HEADER */
+.sidebar-header h3 {
+    font-size: 1.8rem;
+    letter-spacing: 0.1rem;
+}
+
+.sidebar-header p {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+}
+
+/* CONTACT */
+.sidebar-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.sidebar-contact .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-contact .contact-row img {
+    width: 22px;
+    height: 22px;
+
+    opacity: 0.75;
+    transition: 0.2s ease;
+
+    filter: drop-shadow(0 0 6px rgba(0,255,200,0.15));
+}
+
+.sidebar-contact .contact-row:hover img {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+.sidebar-contact .contact-row span {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.9rem;
+}
+
+/* SOCIAL */
+.social-row {
+    display: flex;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.social-row img {
+    width: 22px;
+    height: 22px;
+
+    opacity: 0.7;
+    transition: 0.2s ease;
+}
+
+.social-row img:hover {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+/* NAV */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.sidebar-nav a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    letter-spacing: 0.15rem;
+    font-size: 0.85rem;
+    transition: 0.2s ease;
+}
+
+.sidebar-nav a:hover {
+    color: rgba(0,255,200,1);
+    transform: translateX(6px);
+}
+
+/* =========================
+   CONTENT (IMPORTANT FIX)
+========================= */
+
+#portfolio-content {
+    margin-left: 320px;
+
+    padding: 100px 60px 200px;
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    margin-bottom: 60px;
+    padding: 35px;
 
     border: 1px solid rgba(0,255,200,0.08);
-    background: rgba(255,255,255,0.02);
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(6px);
 }
 
 .section h3 {
-    color: rgba(0,255,200,0.85);
-    margin-bottom: 12px;
+    color: rgba(0,255,200,0.9);
+    margin-bottom: 18px;
 }
 
 .section p {
-    color: rgba(255,255,255,0.8);
-    line-height: 1.6;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.8;
 }
 
+/* =========================
+   MOBILE
+========================= */
 
+@media (max-width: 900px) {
+
+    #sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid rgba(0,255,200,0.08);
+    }
+
+    #portfolio-content {
+        margin-left: 0;
+        padding: 60px 20px 120px;
+    }
+
+    h1 {
+        font-size: clamp(2.5rem, 10vw, 5rem);
+    }
+}
