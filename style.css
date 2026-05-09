@@ -103,11 +103,9 @@ h2 {
 
 #intro-screen .contact-row {
     margin-top: 1.5rem;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-wrap: wrap;
     gap: 14px;
 }
@@ -115,11 +113,8 @@ h2 {
 #intro-screen .contact-row a img {
     width: 24px;
     height: 24px;
-
     opacity: 0.75;
     transition: 0.2s ease;
-
-    filter: drop-shadow(0 0 6px rgba(0,255,200,0.15));
 }
 
 #intro-screen .contact-row a:hover img {
@@ -130,6 +125,8 @@ h2 {
 #intro-screen .contact-text {
     color: rgba(255,255,255,0.8);
     white-space: nowrap;
+    cursor: text;
+    user-select: text;
 }
 
 /* =========================
@@ -162,7 +159,6 @@ h2 {
 #app-layout {
     position: relative;
     z-index: 5;
-
     min-height: 100vh;
 
     opacity: 0;
@@ -187,7 +183,6 @@ h2 {
 
     width: 320px;
     height: 100vh;
-
     z-index: 9999;
 
     padding: 40px;
@@ -202,7 +197,7 @@ h2 {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: top;
+    justify-content: space-between;
 }
 
 /* HEADER */
@@ -218,15 +213,39 @@ h2 {
     color: rgba(255,255,255,0.6);
 }
 
+/* RESUME BUTTON */
+.resume-download {
+    display: inline-block;
+    margin-top: 14px;
+
+    color: rgba(0,255,200,0.9);
+    font-size: 0.85rem;
+    letter-spacing: 0.12rem;
+
+    text-decoration: none;
+
+    padding: 8px 12px;
+    border: 1px solid rgba(0,255,200,0.25);
+    border-radius: 4px;
+
+    transition: 0.2s ease;
+}
+
+.resume-download:hover {
+    background: rgba(0,255,200,0.08);
+    border-color: rgba(0,255,200,0.6);
+    transform: translateY(-1px);
+}
+
 /* =========================
-   CONTACT FIX (IMPORTANT PART)
+   CONTACT
 ========================= */
 
 .sidebar-contact {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    padding:20px;
+    padding: 20px;
 }
 
 .sidebar-contact .contact-row {
@@ -235,33 +254,23 @@ h2 {
     gap: 12px;
 }
 
-/* icon wrapper */
-.sidebar-contact .contact-row a {
-    display: flex;
-    align-items: center;
-}
-
-/* ICON ONLY HOVER */
 .sidebar-contact .contact-row a img {
     width: 22px;
     height: 22px;
-
     opacity: 0.75;
     transition: 0.2s ease;
 }
 
-/* ONLY ICON animates */
 .sidebar-contact .contact-row a:hover img {
     opacity: 1;
     transform: scale(1.15);
 }
 
-/* TEXT NEVER CHANGES */
 .sidebar-contact .contact-text {
     color: rgba(255,255,255,0.75);
     font-size: 0.9rem;
-    cursor: text;          /* IMPORTANT */
-    user-select: text;     /* IMPORTANT */
+    cursor: text;
+    user-select: text;
 }
 
 /* =========================
@@ -309,7 +318,7 @@ h2 {
 }
 
 /* =========================
-   CONTENT
+   CONTENT LAYOUT FIX
 ========================= */
 
 #portfolio-content {
@@ -317,33 +326,87 @@ h2 {
 
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 28px;
 
     padding: 60px 60px 200px;
 }
 
 /* =========================
-   SECTIONS
+   SECTIONS (CLEANER HIERARCHY)
 ========================= */
 
 .section {
-    margin-bottom: 0;
+    padding: 26px 22px;
 
-    padding: 20px 26px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 255, 200, 0.06);
+    border-radius: 10px;
 
-    border: 1px solid rgba(0,255,200,0.08);
-    background: rgba(255,255,255,0.03);
     backdrop-filter: blur(6px);
+
+    transition: 0.2s ease;
+}
+
+/* subtle hover depth (important for modern feel) */
+.section:hover {
+    border-color: rgba(0, 255, 200, 0.18);
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .section h3 {
-    color: rgba(0,255,200,0.9);
-    margin-bottom: 12px;
+    font-size: 0.95rem;
+    letter-spacing: 0.2rem;
+    color: rgba(0,255,200,0.85);
+    margin-bottom: 18px;
 }
 
 .section p {
     color: rgba(255,255,255,0.82);
     line-height: 1.8;
+}
+
+/* =========================
+   ENTRY SYSTEM (IMPORTANT FIX)
+========================= */
+
+.entry {
+    margin-bottom: 22px;
+}
+
+.entry-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 4px;
+}
+
+.entry-sub {
+    font-size: 0.85rem;
+    color: rgba(0,255,200,0.7);
+    margin-bottom: 10px;
+    letter-spacing: 0.05rem;
+}
+
+.entry-list {
+    padding-left: 18px;
+}
+
+.entry-list li {
+    margin-bottom: 6px;
+    color: rgba(255,255,255,0.78);
+    line-height: 1.6;
+}
+
+.entry-body {
+    margin-bottom: 10px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.7;
+}
+
+.label {
+    color: rgba(0,255,200,0.85);
+    font-weight: 600;
+    margin-right: 6px;
 }
 
 /* =========================
@@ -368,25 +431,10 @@ h2 {
     }
 }
 
-.resume-download {
-    display: inline-block;
-    margin-top: 12px;
-
-    color: rgba(0,255,200,0.9);
-    font-size: 0.85rem;
-    letter-spacing: 0.12rem;
-
-    text-decoration: none;
-
-    padding: 8px 12px;
-    border: 1px solid rgba(0,255,200,0.25);
-    border-radius: 4px;
-
-    transition: 0.2s ease;
-}
-
-.resume-download:hover {
-    background: rgba(0,255,200,0.08);
-    border-color: rgba(0,255,200,0.6);
-    transform: translateY(-1px);
+#portfolio-content {
+    margin-left: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 22px; /* slightly tighter since sections now have background */
+    padding: 60px 60px 200px;
 }
