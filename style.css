@@ -10,6 +10,7 @@ body {
     color: white;
     font-family: Arial, sans-serif;
     overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 /* =========================
@@ -22,9 +23,11 @@ body {
     z-index: 0;
 
     background:
-        radial-gradient(circle at center,
+        radial-gradient(
+            circle at center,
             rgba(0, 255, 200, 0.06),
-            transparent 60%),
+            transparent 60%
+        ),
         #05070d;
 }
 
@@ -51,9 +54,11 @@ body {
     inset: 0;
 
     background:
-        radial-gradient(circle,
+        radial-gradient(
+            circle,
             transparent 55%,
-            rgba(0,0,0,0.92) 100%);
+            rgba(0,0,0,0.92) 100%
+        );
 }
 
 /* =========================
@@ -72,7 +77,9 @@ body {
     opacity: 1;
     transform: scale(1);
 
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
 }
 
 #intro-screen.hidden {
@@ -88,11 +95,14 @@ body {
 h1 {
     font-size: clamp(3rem, 7vw, 6.5rem);
     letter-spacing: 0.2rem;
+    line-height: 0.95;
 }
 
 h2 {
     margin-top: 2rem;
+
     color: rgba(255,255,255,0.7);
+
     font-size: 0.95rem;
     letter-spacing: 0.2rem;
 }
@@ -103,17 +113,21 @@ h2 {
 
 #intro-screen .contact-row {
     margin-top: 1.5rem;
+
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+
     gap: 14px;
 }
 
 #intro-screen .contact-row a img {
     width: 24px;
     height: 24px;
+
     opacity: 0.75;
+
     transition: 0.2s ease;
 }
 
@@ -124,7 +138,9 @@ h2 {
 
 #intro-screen .contact-text {
     color: rgba(255,255,255,0.8);
+
     white-space: nowrap;
+
     cursor: text;
     user-select: text;
 }
@@ -136,14 +152,19 @@ h2 {
 .line {
     width: 150px;
     height: 1px;
+
     margin: 2rem auto;
+
     background: rgba(0,255,200,0.35);
 }
 
 #enter {
     color: rgba(0,255,200,0.75);
+
     cursor: pointer;
+
     letter-spacing: 0.2rem;
+
     transition: 0.2s ease;
 }
 
@@ -159,12 +180,13 @@ h2 {
 #app-layout {
     position: relative;
     z-index: 5;
+
     min-height: 100vh;
 
     opacity: 0;
-    transition: opacity 1.2s ease;
-
     pointer-events: none;
+
+    transition: opacity 1.2s ease;
 }
 
 #app-layout.active {
@@ -178,16 +200,19 @@ h2 {
 
 #sidebar {
     position: fixed;
+
     top: 0;
     left: 0;
 
     width: 320px;
     height: 100vh;
+
     z-index: 9999;
 
     padding: 40px;
 
     background: rgba(0,0,0,0.35);
+
     backdrop-filter: blur(14px);
 
     border-right: 1px solid rgba(0,255,200,0.08);
@@ -195,45 +220,55 @@ h2 {
 
 .sidebar-inner {
     height: 100%;
+
     display: flex;
     flex-direction: column;
-    justify-content: top;
 }
 
 /* HEADER */
+
 .sidebar-header h3 {
     font-size: 1.8rem;
+
     letter-spacing: 0.1rem;
     line-height: 1.2;
 }
 
 .sidebar-header p {
     margin-top: 10px;
+
     font-size: 0.85rem;
+
     color: rgba(255,255,255,0.6);
 }
 
 /* RESUME BUTTON */
+
 .resume-download {
     display: inline-block;
+
     margin-top: 14px;
 
+    padding: 8px 12px;
+
+    border: 1px solid rgba(0,255,200,0.25);
+    border-radius: 4px;
+
     color: rgba(0,255,200,0.9);
-    font-size: 0.85rem;
-    letter-spacing: 0.12rem;
 
     text-decoration: none;
 
-    padding: 8px 12px;
-    border: 1px solid rgba(0,255,200,0.25);
-    border-radius: 4px;
+    font-size: 0.85rem;
+    letter-spacing: 0.12rem;
 
     transition: 0.2s ease;
 }
 
 .resume-download:hover {
     background: rgba(0,255,200,0.08);
+
     border-color: rgba(0,255,200,0.6);
+
     transform: translateY(-1px);
 }
 
@@ -244,20 +279,25 @@ h2 {
 .sidebar-contact {
     display: flex;
     flex-direction: column;
+
     gap: 16px;
-    padding: 20px;
+
+    padding: 20px 0;
 }
 
 .sidebar-contact .contact-row {
     display: flex;
     align-items: center;
+
     gap: 12px;
 }
 
 .sidebar-contact .contact-row a img {
     width: 22px;
     height: 22px;
+
     opacity: 0.75;
+
     transition: 0.2s ease;
 }
 
@@ -268,7 +308,9 @@ h2 {
 
 .sidebar-contact .contact-text {
     color: rgba(255,255,255,0.75);
+
     font-size: 0.9rem;
+
     cursor: text;
     user-select: text;
 }
@@ -285,7 +327,9 @@ h2 {
 .social-row img {
     width: 22px;
     height: 22px;
+
     opacity: 0.7;
+
     transition: 0.2s ease;
 }
 
@@ -301,24 +345,29 @@ h2 {
 .sidebar-nav {
     display: flex;
     flex-direction: column;
+
     gap: 14px;
 }
 
 .sidebar-nav a {
     color: rgba(255,255,255,0.6);
+
     text-decoration: none;
+
     letter-spacing: 0.15rem;
     font-size: 0.85rem;
+
     transition: 0.2s ease;
 }
 
 .sidebar-nav a:hover {
     color: rgba(0,255,200,1);
+
     transform: translateX(6px);
 }
 
 /* =========================
-   CONTENT LAYOUT FIX
+   CONTENT
 ========================= */
 
 #portfolio-content {
@@ -326,47 +375,368 @@ h2 {
 
     display: flex;
     flex-direction: column;
-    gap: 28px;
+
+    gap: 24px;
 
     padding: 60px 60px 200px;
 }
 
 /* =========================
-   SECTIONS (CLEANER HIERARCHY)
+   SECTIONS
 ========================= */
 
 .section {
-    padding: 26px 22px;
+    padding: 28px 24px;
 
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(0, 255, 200, 0.06);
-    border-radius: 10px;
+    background: rgba(255,255,255,0.02);
+
+    border: 1px solid rgba(0,255,200,0.06);
+    border-radius: 12px;
 
     backdrop-filter: blur(6px);
 
-    transition: 0.2s ease;
+    transition: 0.25s ease;
 }
 
-/* subtle hover depth (important for modern feel) */
 .section:hover {
-    border-color: rgba(0, 255, 200, 0.18);
-    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(0,255,200,0.18);
+
+    background: rgba(255,255,255,0.03);
 }
 
 .section h3 {
+    margin-bottom: 24px;
+
+    color: rgba(0,255,200,0.85);
+
     font-size: 0.95rem;
     letter-spacing: 0.2rem;
-    color: rgba(0,255,200,0.85);
-    margin-bottom: 18px;
 }
 
 .section p {
     color: rgba(255,255,255,0.82);
+
     line-height: 1.8;
 }
 
 /* =========================
-   ENTRY SYSTEM (IMPORTANT FIX)
+   PROJECT GRID
+========================= */
+
+.project-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 24px;
+}
+
+/* =========================
+   PROJECT CARD
+========================= */
+
+.project-card {
+    overflow: hidden;
+
+    background: rgba(255,255,255,0.03);
+
+    border: 1px solid rgba(0,255,200,0.08);
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(0,255,200,0.25);
+
+    box-shadow:
+        0 0 35px rgba(0,255,200,0.08);
+}
+
+/* =========================
+   PROJECT MEDIA
+========================= */
+
+.project-media {
+    position: relative;
+
+    height: 220px;
+
+    overflow: hidden;
+}
+
+.project-image,
+.project-video {
+    position: absolute;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
+.project-image {
+    opacity: 1;
+}
+
+.project-video {
+    opacity: 0;
+}
+
+.project-card:hover .project-image {
+    opacity: 0;
+}
+
+.project-card:hover .project-video {
+    opacity: 1;
+    transform: scale(1.03);
+}
+
+/* =========================
+   PROJECT OVERLAY
+========================= */
+
+.project-overlay {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0,0,0,0.35);
+
+    opacity: 0;
+
+    color: rgba(255,255,255,0.95);
+
+    font-size: 0.8rem;
+    letter-spacing: 0.2rem;
+
+    transition: 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+/* =========================
+   PROJECT CONTENT
+========================= */
+
+.project-content {
+    padding: 22px;
+}
+
+.project-title {
+    margin-bottom: 12px;
+
+    color: rgba(255,255,255,0.95);
+
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.project-description {
+    color: rgba(255,255,255,0.72);
+
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
+/* =========================
+   TECH TAGS
+========================= */
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 16px;
+}
+
+.tech-tags span {
+    padding: 6px 12px;
+
+    border: 1px solid rgba(0,255,200,0.18);
+    border-radius: 999px;
+
+    background: rgba(0,255,200,0.05);
+
+    color: rgba(0,255,200,0.9);
+
+    font-size: 0.72rem;
+    letter-spacing: 0.04rem;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.project-modal {
+    position: fixed;
+    inset: 0;
+
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    background: rgba(0,0,0,0.82);
+
+    backdrop-filter: blur(10px);
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: 0.3s ease;
+}
+
+.project-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    position: relative;
+
+    width: min(1200px, 100%);
+
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+
+    gap: 40px;
+
+    padding: 40px;
+
+    background: rgba(10,12,18,0.96);
+
+    border: 1px solid rgba(0,255,200,0.12);
+    border-radius: 20px;
+}
+
+/* =========================
+   MODAL VIDEO
+========================= */
+
+.modal-video video {
+    width: 100%;
+
+    border-radius: 14px;
+}
+
+/* =========================
+   MODAL INFO
+========================= */
+
+.modal-info h2 {
+    margin-bottom: 20px;
+
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.modal-info p {
+    margin-bottom: 18px;
+
+    color: rgba(255,255,255,0.78);
+
+    line-height: 1.9;
+}
+
+.modal-info ul {
+    padding-left: 20px;
+
+    margin-bottom: 28px;
+}
+
+.modal-info li {
+    margin-bottom: 10px;
+
+    color: rgba(255,255,255,0.82);
+
+    line-height: 1.7;
+}
+
+/* =========================
+   GITHUB BUTTON
+========================= */
+
+.github-link {
+    display: inline-block;
+
+    padding: 12px 20px;
+
+    border: 1px solid rgba(0,255,200,0.25);
+    border-radius: 6px;
+
+    color: rgba(0,255,200,0.92);
+
+    text-decoration: none;
+
+    letter-spacing: 0.12rem;
+
+    transition: 0.2s ease;
+}
+
+.github-link:hover {
+    background: rgba(0,255,200,0.08);
+
+    border-color: rgba(0,255,200,0.6);
+}
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+.close-modal {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    width: 42px;
+    height: 42px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.08);
+
+    color: white;
+
+    font-size: 1.5rem;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+.close-modal:hover {
+    background: rgba(0,255,200,0.18);
+}
+
+/* =========================
+   ENTRY
 ========================= */
 
 .entry {
@@ -374,16 +744,20 @@ h2 {
 }
 
 .entry-title {
+    margin-bottom: 4px;
+
+    color: rgba(255,255,255,0.95);
+
     font-size: 1.05rem;
     font-weight: 600;
-    color: rgba(255,255,255,0.95);
-    margin-bottom: 4px;
 }
 
 .entry-sub {
-    font-size: 0.85rem;
-    color: rgba(0,255,200,0.7);
     margin-bottom: 10px;
+
+    color: rgba(0,255,200,0.7);
+
+    font-size: 0.85rem;
     letter-spacing: 0.05rem;
 }
 
@@ -393,37 +767,64 @@ h2 {
 
 .entry-list li {
     margin-bottom: 6px;
+
     color: rgba(255,255,255,0.78);
+
     line-height: 1.6;
 }
 
 .entry-body {
     margin-bottom: 10px;
+
     color: rgba(255,255,255,0.8);
+
     line-height: 1.7;
 }
 
 .label {
-    color: rgba(0,255,200,0.85);
-    font-weight: 600;
     margin-right: 6px;
+
+    color: rgba(0,255,200,0.85);
+
+    font-weight: 600;
 }
 
 /* =========================
    MOBILE
 ========================= */
 
+@media (max-width: 1100px) {
+
+    .modal-content {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 900px) {
 
     #sidebar {
         position: relative;
+
         width: 100%;
         height: auto;
     }
 
     #portfolio-content {
         margin-left: 0;
+
         padding: 50px 20px 120px;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .project-modal {
+        padding: 20px;
+    }
+
+    .modal-content {
+        padding: 24px;
     }
 
     h1 {
@@ -431,10 +832,75 @@ h2 {
     }
 }
 
-#portfolio-content {
-    margin-left: 320px;
+/* =========================
+   PROJECT MODAL FIX
+========================= */
+
+.project-modal-content {
+
+    width: min(1200px, 92vw);
+    max-height: 90vh;
+
+    overflow-y: auto;
+
     display: flex;
-    flex-direction: column;
-    gap: 22px; /* slightly tighter since sections now have background */
-    padding: 60px 60px 200px;
+    gap: 30px;
+
+    background: rgba(10,12,18,0.96);
+
+    border: 1px solid rgba(0,255,200,0.15);
+    border-radius: 14px;
+
+    padding: 28px;
+
+    position: relative;
+}
+
+/* video sizing fix */
+
+.project-modal-content video {
+
+    width: 100%;
+    max-width: 700px;
+
+    max-height: 75vh;
+
+    object-fit: contain;
+
+    border-radius: 10px;
+}
+
+/* image sizing too */
+
+.project-modal-content img {
+
+    width: 100%;
+    max-width: 700px;
+
+    max-height: 75vh;
+
+    object-fit: cover;
+
+    border-radius: 10px;
+}
+
+.project-modal {
+
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    background: rgba(0,0,0,0.72);
+
+    z-index: 99999;
+}
+
+.project-modal.active {
+    display: flex;
 }

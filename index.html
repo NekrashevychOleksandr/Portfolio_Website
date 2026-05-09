@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Oleksandr Nekrashevych</title>
+
     <link rel="icon" type="image/png" href="assets/favi.png">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -40,12 +41,18 @@
             <a href="https://wa.me/27665583327" target="_blank">
                 <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
             </a>
-            <div class="contact-text">+27 66 558 3327</div>
+
+            <div class="contact-text">
+                +27 66 558 3327
+            </div>
 
             <a href="mailto:shonnekrashevych@gmail.com">
                 <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png">
             </a>
-            <div class="contact-text">shonnekrashevych@gmail.com</div>
+
+            <div class="contact-text">
+                shonnekrashevych@gmail.com
+            </div>
 
             <a href="https://linkedin.com/in/oleksandr-nekrashevych" target="_blank">
                 <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png">
@@ -72,40 +79,60 @@
 <!-- APP -->
 <section id="app-layout">
 
+    <!-- SIDEBAR -->
     <aside id="sidebar">
 
         <div class="sidebar-inner">
 
             <div class="sidebar-header">
-                <h3>OLEKSANDR<br>NEKRASHEVYCH</h3>
+
+                <h3>
+                    OLEKSANDR<br>
+                    NEKRASHEVYCH
+                </h3>
+
                 <p>
                     COMPUTER ENGINEERING • ROBOTICS • AUTOMATION
                 </p>
 
                 <div class="sidebar-nav">
-                    <a href="assets/Oleksandr_Nekrashevych_Resume.pdf" class="resume-download" target="_blank">
-                        DOWNLOAD RESUME/CV
-                    </a>
-                </div>
-                
-            </div>
 
-            
+                    <a href="assets/Oleksandr_Nekrashevych_Resume.pdf"
+                       class="resume-download"
+                       target="_blank">
+
+                        DOWNLOAD RESUME/CV
+
+                    </a>
+
+                </div>
+
+            </div>
 
             <div class="sidebar-contact">
 
                 <div class="contact-row">
+
                     <a href="https://wa.me/27665583327">
                         <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png">
                     </a>
-                    <div class="contact-text">+27 66 558 3327</div>
+
+                    <div class="contact-text">
+                        +27 66 558 3327
+                    </div>
+
                 </div>
 
                 <div class="contact-row">
+
                     <a href="mailto:shonnekrashevych@gmail.com">
                         <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png">
                     </a>
-                    <div class="contact-text">shonnekrashevych@gmail.com</div>
+
+                    <div class="contact-text">
+                        shonnekrashevych@gmail.com
+                    </div>
+
                 </div>
 
                 <div class="social-row">
@@ -123,87 +150,201 @@
             </div>
 
             <nav class="sidebar-nav">
-            <a href="#about">ABOUT</a>
-            <a href="#projects">PROJECTS</a>
-            <a href="#skills">TECHNICAL SKILLS</a>
-            <a href="#experience">EXPERIENCE</a>
-            <a href="#education">EDUCATION</a>
-            <a href="#certifications">CERTIFICATIONS</a>
 
-            
+                <a href="#about">ABOUT</a>
+                <a href="#projects">PROJECTS</a>
+                <a href="#skills">TECHNICAL SKILLS</a>
+                <a href="#experience">EXPERIENCE</a>
+                <a href="#education">EDUCATION</a>
+                <a href="#certifications">CERTIFICATIONS</a>
+
             </nav>
 
         </div>
 
     </aside>
 
+    <!-- CONTENT -->
     <main id="portfolio-content">
 
-    <!-- ABOUT -->
-    <section class="section" id="about">
-        <h3>ABOUT</h3>
-        <p>
-            Computer Engineering student focused on designing autonomous and embedded systems from first principles. My interests lie in robotics, control systems, and intelligent software that integrates perception, estimation, and actuation in real time. I enjoy working across the full stack of autonomy—from hardware-level implementation to algorithmic decision-making.
-        </p>
-    </section>
+        <!-- ABOUT -->
+        <section class="section" id="about">
 
-    
+            <h3>ABOUT</h3>
 
-    <!-- PROJECTS -->
-    <section class="section" id="projects">
-        <h3>PROJECTS</h3>
+            <p>
+                Computer Engineering student focused on designing autonomous and embedded systems from first principles.
+                My interests lie in robotics, control systems, and intelligent software that integrates perception,
+                estimation, and actuation in real time. I enjoy working across the full stack of autonomy—from
+                hardware-level implementation to algorithmic decision-making.
+            </p>
 
-        <div class="entry">
-            <div class="entry-title">
-                Facial Feature Extraction & CNC Sketching Robot
+        </section>
+
+        <!-- PROJECTS -->
+        <section class="section" id="projects">
+
+            <h3>PROJECTS</h3>
+
+            <div class="project-grid">
+
+                <!-- PROJECT -->
+                <div class="project-card"
+                     data-modal="cnc-modal">
+
+                    <div class="project-media">
+
+                        <img src="assets/projects/CNC_Machine_Image.png"
+                             class="project-image">
+
+                        <video class="project-video"
+                               muted
+                               loop
+                               playsinline>
+
+                            <source src="assets/projects/CNC_Machine_vid.mp4"
+                                    type="video/mp4">
+
+                        </video>
+
+                        <div class="project-overlay">
+                            VIEW PROJECT
+                        </div>
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <div class="project-title">
+                            Facial Feature Extraction & CNC Sketching Robot
+                        </div>
+
+                        <div class="project-description">
+                            Autonomous robotic portrait reconstruction pipeline combining embedded systems,
+                            computer vision, and CNC motion control.
+                        </div>
+
+                        <div class="tech-tags">
+
+                            <span>Python</span>
+                            <span>OpenCV</span>
+                            <span>ESP32</span>
+                            <span>Computer Vision</span>
+                            <span>CNC</span>
+                            <span>Embedded Systems</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- PROJECT -->
+                <div class="project-card"
+                     data-modal="gaia-modal">
+
+                    <div class="project-media">
+
+                        <img src="assets/projects/chess_bot.PNG"
+                             class="project-image">
+
+                        <video class="project-video"
+                               muted
+                               loop
+                               playsinline>
+
+                            <source src="assets/projects/chessbot.mp4"
+                                    type="video/mp4">
+
+                        </video>
+
+                        <div class="project-overlay">
+                            VIEW PROJECT
+                        </div>
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <div class="project-title">
+                            GAIA Autonomous Intelligence System
+                        </div>
+
+                        <div class="project-description">
+                            Modular autonomous AI agent framework with persistent memory,
+                            contextual reasoning, and autonomous computer interaction.
+                        </div>
+
+                        <div class="tech-tags">
+
+                            <span>Python</span>
+                            <span>LLMs</span>
+                            <span>OpenCV</span>
+                            <span>Automation</span>
+                            <span>Async Systems</span>
+                            <span>AI Agents</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- PROJECT -->
+                <div class="project-card"
+                     data-modal="robot-modal">
+
+                    <div class="project-media">
+
+                        <img src="assets/projects/Robot_car.png"
+                             class="project-image">
+
+                        <video class="project-video"
+                               muted
+                               loop
+                               playsinline>
+
+                            <source src="assets/projects/Multi_colour_automnoumous_line_follwoign_robot.mp4"
+                                    type="video/mp4">
+
+                        </video>
+
+                        <div class="project-overlay">
+                            VIEW PROJECT
+                        </div>
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <div class="project-title">
+                            Autonomous Line-Following Robot
+                        </div>
+
+                        <div class="project-description">
+                            Semi-finalist autonomous robot built for TUKS Robot Race Day using
+                            low-level embedded firmware and real-time control systems.
+                        </div>
+
+                        <div class="tech-tags">
+
+                            <span>Assembly</span>
+                            <span>PIC18F45K22</span>
+                            <span>Embedded</span>
+                            <span>Control Systems</span>
+                            <span>Robotics</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="entry-sub">
-                Python • C • Embedded Systems • Computer Vision
-            </div>
+        </section>
 
-            <ul class="entry-list">
-                <li>Engineered an end-to-end computer vision and robotic sketching system as a final-year project, developed from first principles.</li>
-                <li>Built an embedded image-processing pipeline on an Odroid N2+ using HOG-based descriptors, custom edge detection, and pixel-density feature localization to extract facial structures from images.</li>
-                <li>Implemented an ESP32-controlled CNC drawing system that translated extracted facial features into motion commands, enabling automated sketch reconstruction on canvas with consistent geometric accuracy.</li>
-            </ul>
-        </div>
-
-        <div class="entry">
-            <div class="entry-title">
-                GAIA Autonomous Intelligence System
-            </div>
-
-            <div class="entry-sub">
-                Python • OpenCV • LLMs • Asynchronous Systems
-            </div>
-
-            <ul class="entry-list">
-                <li>Developed a modular autonomous AI agent framework with persistent memory, contextual reasoning, and emotional state tracking, currently supporting task execution through structured computer interaction workflows.</li>
-                <li>Integrated real-time avatar expression via VTube Studio and implemented remote interaction systems through Cloudflare-hosted control interfaces and Telegram-based communication.</li>
-                <li>Built an autonomous computer interaction pipeline using OpenCV screen analysis, Stockfish-based decision-making, and input automation to execute real-time chess gameplay without external APIs.</li>
-            </ul>
-        </div>
-
-        <div class="entry">
-            <div class="entry-title">
-                Autonomous Line-Following Robot (TUKS Robot Race Day – Semi-Finalist)
-            </div>
-
-            <div class="entry-sub">
-                Assembly • Embedded Systems
-            </div>
-
-            <ul class="entry-list">
-                <li>Designed and implemented an autonomous mobile robot capable of real-time line detection and trajectory following using onboard sensors and embedded control.</li>
-                <li>Developed low-level assembly control firmware on the PIC18F45K22 microcontroller for direct motor actuation based on real-time sensor feedback, enabling precise navigation under dynamic conditions.</li>
-                <li>Achieved semi-finalist placement in the TUKS Robot Race Day through consistent high-accuracy autonomous performance in variable track environments.</li>
-            </ul>
-        </div>
-
-    </section>
-
-    <!-- SKILLS -->
+        <!-- SKILLS -->
     <section class="section" id="skills">
         <h3>TECHNICAL SKILLS</h3>
 
@@ -313,7 +454,7 @@
             </div>
 
             <div class="entry-sub">
-                BEng Computer Engineering • Expected Dec 2026 • Pretoria, Gauteng
+                BEng Computer Engineering • Expected Dec 2026 
             </div>
 
             <div class="entry-body">
@@ -351,9 +492,236 @@
 
     </section>
 
-</main>
+    </main>
 
 </section>
+
+<!-- =========================
+     MODALS
+========================= -->
+
+<!-- CNC -->
+<div class="project-modal"
+     id="cnc-modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal">×</button>
+
+        <div class="modal-video">
+
+            <video controls>
+
+                <source src="assets/projects/CNC_Machine_vid.mp4"
+                        type="video/mp4">
+
+            </video>
+
+        </div>
+
+        <div class="modal-info">
+
+            <h2>
+                Facial Feature Extraction & CNC Sketching Robot
+            </h2>
+
+            <p>
+                Developed a complete robotic portrait reconstruction system capable
+                of extracting facial structures from images and reproducing them
+                physically using a CNC drawing platform.
+            </p>
+
+            <p>
+                The project combined computer vision, embedded systems,
+                coordinate transformations, path planning, and motion control
+                into a unified autonomous pipeline.
+            </p>
+
+            <ul>
+
+                <li>
+                    Custom edge detection and facial feature extraction
+                </li>
+
+                <li>
+                    ESP32-based CNC motion controller
+                </li>
+
+                <li>
+                    Odroid N2+ onboard processing pipeline
+                </li>
+
+                <li>
+                    Real-time coordinate transformation system
+                </li>
+
+                <li>
+                    Autonomous sketch reconstruction workflow
+                </li>
+
+            </ul>
+
+            <a href="https://github.com/"
+               target="_blank"
+               class="github-link">
+
+                VIEW GITHUB
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- GAIA -->
+<div class="project-modal"
+     id="gaia-modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal">×</button>
+
+        <div class="modal-video">
+
+            <video controls>
+
+                <source src="assets/projects/chessbot.mp4"
+                        type="video/mp4">
+
+            </video>
+
+        </div>
+
+        <div class="modal-info">
+
+            <h2>
+                GAIA Autonomous Intelligence System
+            </h2>
+
+            <p>
+                Built a modular autonomous AI framework with persistent memory,
+                contextual reasoning, and asynchronous task execution capabilities.
+            </p>
+
+            <p>
+                Integrated OpenCV-based screen understanding,
+                autonomous interaction systems, avatar control,
+                and real-time workflow automation.
+            </p>
+
+            <ul>
+
+                <li>
+                    Persistent memory architecture
+                </li>
+
+                <li>
+                    OpenCV screen analysis pipeline
+                </li>
+
+                <li>
+                    Autonomous computer interaction
+                </li>
+
+                <li>
+                    Asynchronous task orchestration
+                </li>
+
+                <li>
+                    Remote interaction systems
+                </li>
+
+            </ul>
+
+            <a href="https://github.com/"
+               target="_blank"
+               class="github-link">
+
+                VIEW GITHUB
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ROBOT -->
+<div class="project-modal"
+     id="robot-modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal">×</button>
+
+        <div class="modal-video">
+
+            <video controls>
+
+                <source src="assets/projects/Multi_colour_automnoumous_line_follwoign_robot.mp4"
+                        type="video/mp4">
+
+            </video>
+
+        </div>
+
+        <div class="modal-info">
+
+            <h2>
+                Autonomous Line-Following Robot
+            </h2>
+
+            <p>
+                Designed and programmed an autonomous mobile robot for
+                TUKS Robot Race Day, achieving semi-finalist placement
+                through high-accuracy autonomous navigation.
+            </p>
+
+            <p>
+                Implemented low-level firmware in assembly on the PIC18F45K22
+                microcontroller for real-time sensor processing and motor control.
+            </p>
+
+            <ul>
+
+                <li>
+                    Embedded assembly firmware
+                </li>
+
+                <li>
+                    Real-time sensor feedback control
+                </li>
+
+                <li>
+                    Motor trajectory following
+                </li>
+
+                <li>
+                    Competition autonomous navigation
+                </li>
+
+                <li>
+                    Low-latency control systems
+                </li>
+
+            </ul>
+
+            <a href="https://github.com/"
+               target="_blank"
+               class="github-link">
+
+                VIEW GITHUB
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 <script src="script.js"></script>
 

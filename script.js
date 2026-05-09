@@ -12,6 +12,12 @@ const enterBtn = document.getElementById("enter");
 const introScreen = document.getElementById("intro-screen");
 const appLayout = document.getElementById("app-layout");
 
+/* NEW PROJECT ELEMENTS */
+
+const projectCards = document.querySelectorAll(".project-card");
+const projectModals = document.querySelectorAll(".project-modal");
+const closeButtons = document.querySelectorAll(".close-modal");
+
 /* =========================
    SETTINGS
 ========================= */
@@ -52,6 +58,112 @@ enterBtn.addEventListener("click", () => {
         appLayout.classList.add("active");
         transitionPhase = 2;
     }, 200);
+});
+
+/* =========================
+   PROJECT CARDS
+========================= */
+
+projectCards.forEach(card => {
+
+    const hoverVideo = card.querySelector(".project-video");
+
+    /* play video on hover */
+    card.addEventListener("mouseenter", () => {
+
+        if (!hoverVideo) return;
+
+        hoverVideo.currentTime = 0;
+
+        hoverVideo.play().catch(() => {});
+    });
+
+    /* stop video when leaving */
+    card.addEventListener("mouseleave", () => {
+
+        if (!hoverVideo) return;
+
+        hoverVideo.pause();
+
+        hoverVideo.currentTime = 0;
+    });
+
+    /* open modal */
+    card.addEventListener("click", () => {
+
+        const modalId = card.dataset.modal;
+
+        const modal = document.getElementById(modalId);
+
+        if (!modal) return;
+
+        modal.classList.add("active");
+
+        document.body.style.overflow = "hidden";
+
+        const modalVideo = modal.querySelector("video");
+
+        if (modalVideo) {
+            modalVideo.play().catch(() => {});
+        }
+    });
+});
+
+/* =========================
+   CLOSE MODALS
+========================= */
+
+function closeModal(modal) {
+
+    modal.classList.remove("active");
+
+    document.body.style.overflow = "";
+
+    const modalVideo = modal.querySelector("video");
+
+    if (modalVideo) {
+
+        modalVideo.pause();
+
+        modalVideo.currentTime = 0;
+    }
+}
+
+closeButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const modal = button.closest(".project-modal");
+
+        closeModal(modal);
+    });
+});
+
+/* click outside modal */
+
+projectModals.forEach(modal => {
+
+    modal.addEventListener("click", (e) => {
+
+        if (e.target === modal) {
+            closeModal(modal);
+        }
+    });
+});
+
+/* escape key */
+
+window.addEventListener("keydown", (e) => {
+
+    if (e.key === "Escape") {
+
+        projectModals.forEach(modal => {
+
+            if (modal.classList.contains("active")) {
+                closeModal(modal);
+            }
+        });
+    }
 });
 
 /* =========================
