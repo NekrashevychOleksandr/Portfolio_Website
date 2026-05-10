@@ -292,19 +292,19 @@
                 </div>
 
 
-                <!-- PROJECT -->
+                <!-- CHESS AGENT -->
                 <div class="project-card"
-                     data-modal="gaia-modal">
+                    data-modal="chess-agent-modal">
 
                     <div class="project-media">
 
                         <img src="assets/projects/chess_bot.PNG"
-                             class="project-image">
+                            class="project-image">
 
                         <video class="project-video"
-                               muted
-                               loop
-                               playsinline>
+                            muted
+                            loop
+                            playsinline>
 
                             <source src="assets/projects/chessbot.mp4"
                                     type="video/mp4">
@@ -319,8 +319,114 @@
 
                     <div class="project-content">
 
+                        <div class="project-title">
+                            Vision-Based Autonomous Chess Agent
+                        </div>
+
+                        <div class="project-description">
+                            Real-time autonomous system that plays chess on chess.com using computer vision
+                            and screen automation. Extracts board state visually, computes moves, and executes
+                            them through a closed perception–action loop.
+                        </div>
+
+                        <div class="tech-tags">
+
+                            <span>Python</span>
+                            <span>OpenCV</span>
+                            <span>PyAutoGUI</span>
+                            <span>Computer Vision</span>
+                            <span>Automation</span>
+                            <span>Agent Systems</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- WHATSAPP CUSTOMER SERVICE AGENT -->
+                <div class="project-card"
+                    data-modal="whatsapp-modal">
+
+                    <div class="project-media">
+
+                        <img src="assets/projects/Whatsapp_bot.png"
+                            class="project-image">
+
+                        <video class="project-video"
+                            muted
+                            loop
+                            playsinline>
+
+                            <source src="assets/projects/Whatsapp_bot.mp4"
+                                    type="video/mp4">
+
+                        </video>
+
+                        <div class="project-overlay">
+                            VIEW PROJECT
+                        </div>
+
+                    </div>
+
+                    <div class="project-content">
+
+                        <div class="project-title">
+                            Conversational Workflow Agent (WhatsApp - Node.js)
+                        </div>
+
+                        <div class="project-description">
+                            Node.js-based automation system for WhatsApp customer support.
+                            Handles message routing, intent detection, human escalation, and project request
+                            processing with structured email generation for internal teams.
+                        </div>
+
+                        <div class="tech-tags">
+
+                            <span>Node.js</span>
+                            <span>APIs</span>
+                            <span>Automation</span>
+                            <span>Workflow Systems</span>
+                            <span>Message Routing</span>
+                            <span>Backend Systems</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PROJECT -->
+                <div class="project-card"
+                     data-modal="gaia-modal">
+
+                    <div class="project-media">
+
+                        <img src="assets/projects/GAIA.png"
+                             class="project-image">
+
+                        <video class="project-video"
+                               muted
+                               loop
+                               playsinline>
+
+                            <source src="assets/projects/gaia.mp4"
+                                    type="video/mp4">
+
+                        </video>
+
+                        <div class="project-overlay">
+                            VIEW PROJECT
+                        </div>
+
+                    </div>
+
+                    <div class="project-content">
+
                       <div class="project-title">
-                          GAIA Autonomous Intelligence System
+                          GAIA Autonomous Intelligence System (Active Research Project) 
                       </div>
 
                       <div class="project-description">
@@ -506,6 +612,97 @@
      MODALS
 ========================= -->
 
+
+
+
+<!-- WHATSAPP CUSTOMER SERVICE AGENT -->
+<div class="project-modal" id="whatsapp-modal">
+
+    <div class="modal-content">
+
+        <button class="close-modal">×</button>
+
+        <div class="modal-video">
+
+            <img src="assets/projects/Whatsapp_bot.png"
+                alt="WhatsApp AI System Overview">
+
+            <video controls>
+
+                <source src="assets/projects/Whatsapp_bot.mp4"
+                        type="video/mp4">
+
+            </video>
+
+        </div>
+
+        <div class="modal-info">
+
+            <h2>
+                Conversational Workflow Agent for Customer Service (WhatsApp System)
+            </h2>
+
+            <p>
+                This system is a Node.js-based conversational automation agent designed to operate within WhatsApp,
+                handling customer messages, routing requests, and managing escalation flows in real time.
+                It is built as a workflow orchestration system rather than a traditional chatbot.
+            </p>
+
+            <p>
+                The agent processes incoming messages, classifies intent, and routes interactions into three primary flows:
+                automated support responses, human handoff requests, and internal project request generation.
+                Project-related messages are structured into formatted email summaries and sent to a team lead for review.
+            </p>
+
+            <ul>
+
+                <li>
+                    Intent classification and message routing logic (Node.js backend)
+                </li>
+
+                <li>
+                    Automated customer support response system
+                </li>
+
+                <li>
+                    Human escalation and live operator handoff flow
+                </li>
+
+                <li>
+                    Project request detection with structured email generation
+                </li>
+
+                <li>
+                    Priority and urgency tagging for internal workflows
+                </li>
+
+                <li>
+                    WhatsApp integration via messaging API layer
+                </li>
+
+            </ul>
+
+            <p>
+                The system demonstrates backend workflow design, conversational routing logic,
+                and real-world automation of customer communication pipelines.
+            </p>
+
+            <a href="https://github.com/NekrashevychOleksandr/whatsappCustomerSupportAI"
+               target="_blank"
+               class="github-link">
+
+                VIEW GITHUB
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
 <!-- CNC -->
 <div class="project-modal"
      id="cnc-modal">
@@ -583,10 +780,98 @@
 
 </div>
 
+<!-- CHESS AGENT -->
+<div class="project-modal" id="chess-agent-modal">
+
+
+        <div class="modal-content">
+
+        <button class="close-modal">×</button>
+
+        <div class="modal-video">
+
+        
+            <video controls>
+
+                <source src="assets/projects/chessbot.mp4"
+                        type="video/mp4">
+
+            </video>
+
+        </div>
+
+
+        <div class="modal-info">
+
+            <h2>
+                Vision-Based Autonomous Chess Agent (Real-Time System)
+            </h2>
+
+            <p>
+                This project is a fully autonomous chess-playing agent that operates directly
+                on live chess.com gameplay using computer vision and screen automation.
+                It perceives the game state visually, computes moves, and executes them in real time.
+            </p>
+
+            <p>
+                The system is built around a closed perception–decision–action loop,
+                where screen capture is interpreted into a structured board state,
+                a move is generated, and then physically executed via mouse automation.
+            </p>
+
+            <ul>
+
+                <li>
+                    OpenCV-based chessboard detection and state extraction
+                </li>
+
+                <li>
+                    Real-time screen parsing and piece recognition pipeline
+                </li>
+
+                <li>
+                    Move decision system (engine-based or rule-driven logic)
+                </li>
+
+                <li>
+                    PyAutoGUI-based mouse automation for move execution
+                </li>
+
+                <li>
+                    Robust coordinate mapping between UI and internal board representation
+                </li>
+
+                <li>
+                    Fully closed-loop autonomous gameplay on live web interface
+                </li>
+
+            </ul>
+
+            <p>
+                The system demonstrates real-time autonomy in a dynamic UI environment,
+                combining perception, reasoning, and action into a single operational loop.
+            </p>
+
+            <a href="https://github.com/NekrashevychOleksandr/Chess_Agent"
+               target="_blank"
+               class="github-link">
+
+                VIEW GITHUB
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
 <!-- GAIA -->
 <div class="project-modal" id="gaia-modal">
 
-    <div class="modal-content">
+     <div class="modal-content">
 
         <button class="close-modal">×</button>
 
@@ -594,7 +879,7 @@
 
             <video controls>
 
-                <source src="assets/projects/chessbot.mp4"
+                <source src="assets/projects/gaia.mp4"
                         type="video/mp4">
 
             </video>

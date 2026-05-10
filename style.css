@@ -675,15 +675,43 @@ h2 {
 /* =========================
    MODAL VIDEO
 ========================= */
-
 .modal-video video {
     width: 100%;
+    max-width: 100%;
+
+    height: auto;
+    max-height: 75vh;
+
+    display: block;
+
+    object-fit: contain;
+}
+.modal-video {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    width: 100%;
+}
+
+/* shared media rules */
+.modal-video video,
+.modal-video img {
+    width: 100%;
+    max-width: 100%;
 
     max-height: 75vh;
 
-    object-fit: contain;
+    object-fit: scale-down;
 
     border-radius: 14px;
+
+    display: block;
+}
+
+/* important fix for video specifically */
+.modal-video video {
+    height: auto;
 }
 
 /* =========================
