@@ -699,7 +699,6 @@ h2 {
     width: 100%;
 }
 
-/* shared media rules */
 .modal-video video,
 .modal-video img {
     width: 100%;
@@ -825,7 +824,7 @@ h2 {
 
     transition: 0.2s ease;
 
-    z-index: 10;
+    z-index: 1000;
 }
 
 .close-modal:hover {
