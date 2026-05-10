@@ -714,7 +714,7 @@ h2 {
     display: block;
 }
 
-/* important fix for video specifically */
+
 .modal-video video {
     height: auto;
 }
@@ -898,6 +898,21 @@ h2 {
 
     .modal-content {
         grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 20px;
+        max-height: 95vh;
+    }
+
+    .modal-video video,
+    .modal-video img {
+        max-height: 45vh;
+        object-fit: contain;
+    }
+
+    .modal-info {
+        max-height: 45vh;
+        overflow-y: auto;
+        padding-right: 8px;
     }
 }
 
@@ -959,4 +974,13 @@ h2 {
     letter-spacing: 0.04rem;
 
     line-height: 1.5;
+}
+
+
+.project-title {
+    min-height: 3.2em;
+}
+
+.project-description {
+    min-height: 5.5em;
 }

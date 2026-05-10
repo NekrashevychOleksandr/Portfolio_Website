@@ -2,7 +2,6 @@ function lockScroll() {
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
 
-    // IMPORTANT: allow modal internal scrolling
     document.querySelectorAll(".modal-content").forEach(el => {
         el.style.overflow = "auto";
     });
@@ -69,10 +68,9 @@ enterBtn.addEventListener("click", () => {
     transitionPhase = 1;
     transitionT = 0;
 
-    // hide intro immediately (no delay fighting CSS)
+
     introScreen.classList.add("hidden");
 
-    // show app slightly after (lets CSS breathe)
     setTimeout(() => {
         appLayout.classList.add("active");
         transitionPhase = 2;
@@ -87,7 +85,7 @@ projectCards.forEach(card => {
 
     const hoverVideo = card.querySelector(".project-video");
 
-    /* play video on hover */
+
     card.addEventListener("mouseenter", () => {
 
         if (!hoverVideo) return;
@@ -340,7 +338,7 @@ function connect() {
 }
 
 /* =========================
-   TRANSITION LOGIC (FIXED)
+   TRANSITION LOGIC
 ========================= */
 
 function updateTransition() {
@@ -365,7 +363,7 @@ function updateTransition() {
         return;
     }
 
-    // settled state (portfolio open)
+
     if (transitionPhase === 2) {
 
         SPEED += (baseSpeed - SPEED) * 0.04;
