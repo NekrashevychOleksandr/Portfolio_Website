@@ -984,3 +984,11 @@ h2 {
 .project-description {
     min-height: 5.5em;
 }
+
+html {
+    text-size-adjust: 100%;
+}
+
+.modal-content {
+    max-height: 90dvh;
+}
