@@ -899,6 +899,7 @@ h2 {
         grid-template-columns: 1fr;
         gap: 20px;
         padding: 20px;
+        padding-top: 80px;
         max-height: 95vh;
     }
 
@@ -940,6 +941,7 @@ h2 {
 
     .modal-content {
         padding: 24px;
+        padding-top: 80px;
     }
 
     h1 {
