@@ -1,3 +1,22 @@
+function lockScroll() {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    // IMPORTANT: allow modal internal scrolling
+    document.querySelectorAll(".modal-content").forEach(el => {
+        el.style.overflow = "auto";
+    });
+}
+
+function unlockScroll() {
+    document.body.style.overflow = "";
+    document.documentElement.style.overflow = "";
+
+    document.querySelectorAll(".modal-content").forEach(el => {
+        el.style.overflow = "";
+    });
+}
+
 const canvas = document.getElementById("bgCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -99,7 +118,7 @@ projectCards.forEach(card => {
 
         modal.classList.add("active");
 
-        document.body.style.overflow = "hidden";
+        lockScroll();
 
         const modalVideo = modal.querySelector("video");
 
@@ -117,7 +136,7 @@ function closeModal(modal) {
 
     modal.classList.remove("active");
 
-    document.body.style.overflow = "";
+    unlockScroll();
 
     const modalVideo = modal.querySelector("video");
 

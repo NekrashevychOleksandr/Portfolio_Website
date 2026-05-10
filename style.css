@@ -241,10 +241,12 @@ h2 {
 
     width: 320px;
     height: 100vh;
+    
 
     z-index: 9999;
 
     padding: 40px;
+    
 
     background: rgba(0,0,0,0.35);
 
@@ -413,7 +415,7 @@ h2 {
 
     gap: 24px;
 
-    padding: 60px 60px 200px;
+    padding: 40px 40px 40px;
 }
 
 /* =========================
@@ -431,6 +433,7 @@ h2 {
     backdrop-filter: blur(6px);
 
     transition: 0.25s ease;
+    
 }
 
 .section:hover {
@@ -655,21 +658,21 @@ h2 {
     position: relative;
 
     width: min(1200px, 100%);
-    max-height: 90vh;
-
-    overflow-y: auto;
+    height: 90vh;
 
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1fr 1fr;
 
     gap: 40px;
 
-    padding: 40px;
+    padding: 60px;
 
     background: rgba(10,12,18,0.96);
 
     border: 1px solid rgba(0,255,200,0.12);
     border-radius: 20px;
+
+    overflow: hidden;
 }
 
 /* =========================
@@ -713,13 +716,34 @@ h2 {
 .modal-video video {
     height: auto;
 }
+.modal-video {
+    position: sticky;
+    top: 0;
+
+    align-self: start;
+
+    max-height: 90vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 
 /* =========================
    MODAL INFO
 ========================= */
+.modal-info {
+    overflow-y: auto;
+    max-height: 100%;
+    padding-right: 10px;
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
 
 .modal-info h2 {
-    margin-bottom: 20px;
+    margin: 0 0 20px 0;
 
     font-size: 2rem;
     line-height: 1.2;
@@ -780,7 +804,6 @@ h2 {
 
 .close-modal {
     position: absolute;
-
     top: 18px;
     right: 18px;
 
@@ -799,6 +822,8 @@ h2 {
     cursor: pointer;
 
     transition: 0.2s ease;
+
+    z-index: 10;
 }
 
 .close-modal:hover {
@@ -810,7 +835,7 @@ h2 {
 ========================= */
 
 .entry {
-    margin-bottom: 22px;
+    margin-bottom:0 px;
 }
 
 .entry-title {
@@ -900,79 +925,6 @@ h2 {
     h1 {
         font-size: clamp(2.5rem, 10vw, 5rem);
     }
-}
-
-/* =========================
-   PROJECT MODAL FIX
-========================= */
-
-.project-modal-content {
-
-    width: min(1200px, 92vw);
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    display: flex;
-    gap: 30px;
-
-    background: rgba(10,12,18,0.96);
-
-    border: 1px solid rgba(0,255,200,0.15);
-    border-radius: 14px;
-
-    padding: 28px;
-
-    position: relative;
-}
-
-/* video sizing fix */
-
-.project-modal-content video {
-
-    width: 100%;
-    max-width: 700px;
-
-    max-height: 75vh;
-
-    object-fit: contain;
-
-    border-radius: 10px;
-}
-
-/* image sizing too */
-
-.project-modal-content img {
-
-    width: 100%;
-    max-width: 700px;
-
-    max-height: 75vh;
-
-    object-fit: cover;
-
-    border-radius: 10px;
-}
-
-.project-modal {
-
-    position: fixed;
-    inset: 0;
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 40px;
-
-    background: rgba(0,0,0,0.72);
-
-    z-index: 99999;
-}
-
-.project-modal.active {
-    display: flex;
 }
 
 .disabled-link {
