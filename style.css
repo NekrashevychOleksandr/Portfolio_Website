@@ -139,11 +139,12 @@ h2 {
 #intro-screen .contact-text {
     color: rgba(255,255,255,0.8);
 
-    white-space: nowrap;
-
-    cursor: text;
+    cursor: pointer;
     user-select: text;
+
+    
 }
+
 
 /* =========================
    ENTER
@@ -340,19 +341,31 @@ h2 {
     transition: 0.2s ease;
 }
 
-.sidebar-contact .contact-row a:hover img {
+.sidebar-contact .contact-row:hover img {
     opacity: 1;
     transform: scale(1.15);
 }
 
 .sidebar-contact .contact-text {
     color: rgba(255,255,255,0.75);
+    text-decoration: none;
 
     font-size: 0.9rem;
 
-    cursor: text;
+    cursor: pointer;
     user-select: text;
 }
+
+.contact-row a{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    text-decoration: none;
+    color: inherit;
+}
+
+
 
 /* =========================
    SOCIAL
