@@ -26,25 +26,6 @@ https://nekrashevycholeksandr.github.io/Portfolio_Website/
 
 ---
 
-## Projects Highlighted
-
-### Facial Feature Extraction & CNC Sketching Robot
-- Computer vision pipeline built from first principles
-- Embedded system running on Odroid N2+
-- ESP32-based CNC drawing system for automated sketching
-
-### GAIA Autonomous Intelligence System
-- Modular autonomous AI agent framework
-- Real-time computer interaction system
-- Memory, reasoning, and task execution architecture
-
-### Autonomous Line-Following Robot
-- PIC18F45K22 assembly-based control system
-- Real-time sensor-driven navigation
-- Semi-finalist in robotics competition
-
----
-
 ## Technologies Used
 
 ### Frontend
@@ -57,14 +38,6 @@ https://nekrashevycholeksandr.github.io/Portfolio_Website/
 - Custom particle system
 - Real-time animation engine
 - DOM-based modal system
-
-### Engineering Concepts
-- Computer Vision
-- Embedded Systems
-- Control Systems
-- State Estimation (Kalman Filtering concepts)
-- Robotics and Automation
-
 ---
 
 ## Project Structure
@@ -114,13 +87,6 @@ http://localhost:8000
 
 This project is deployed using GitHub Pages.
 
-To deploy:
-1. Go to repository settings
-2. Open Pages section
-3. Select branch: main
-4. Select folder: root
-5. Save
-
 The site will be available at:
 
 https://nekrashevycholeksandr.github.io/Portfolio_Website/
@@ -130,7 +96,6 @@ https://nekrashevycholeksandr.github.io/Portfolio_Website/
 ## Contact
 
 Email: shonnekrashevych@gmail.com  
-GitHub: https://github.com/NekrashevychOleksandr  
 LinkedIn: https://linkedin.com/in/oleksandr-nekrashevych  
 
 ---
