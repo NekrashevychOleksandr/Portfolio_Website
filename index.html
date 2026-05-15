@@ -329,19 +329,23 @@
                         </div>
 
                         <div class="project-description">
-                            Autonomous chess-playing system that operates on a graphical interface using screen-based
-                            computer vision to extract board state, a chess engine for move generation, and
-                            system-level input automation to execute moves in real time.
+                            Autonomous chess-playing system that operates directly on a graphical chess interface using
+                            real-time computer vision for board state reconstruction, a Stockfish-based engine for move
+                            generation, and OS-level input automation for execution.
 
-                            No APIs or web scraping are used; interaction is purely visual and input-driven.
+                            The system performs full visual state extraction from screen data and converts it into structured
+                            FEN representations without using APIs or web scraping.
                         </div>
 
                         <div class="tech-tags">
 
+                            <span>Python</span>
+                            <span>PyTorch</span>
+                            <span>OpenCV</span>
                             <span>Computer Vision</span>
-                            <span>Image Processing</span>
+                            <span>State Reconstruction</span>
+                            <span>Machine Learning</span>
                             <span>System Automation</span>
-                            <span>Chess Engine Integration</span>
 
                         </div>
 
@@ -892,43 +896,27 @@
             </h2>
 
             <p>
-                Built a fully autonomous chess-playing system that operates on a graphical chess interface
-                using real-time screen-based computer vision, move generation through Stockfish engine integration, and
-                system-level input automation to execute actions.
+                Built a fully autonomous chess agent that operates on a live graphical chess interface using a
+                closed perception–decision–action pipeline.
             </p>
 
             <p>
-                The system is structured around a closed perception–decision–action loop, where screen input
-                is converted into a structured board representation, processed to determine optimal moves,
-                and executed through automated cursor control in real time.
+                The system performs screen-based board detection and reconstructs game state through coordinate
+                mapping and FEN conversion, which is then passed to a Stockfish engine for optimal move generation.
             </p>
 
             <ul>
+                <li>Screen-based chessboard detection and structured board state reconstruction from visual input</li>
 
-                <li>
-                    Screen-based chessboard detection and reconstruction using image processing techniques
-                </li>
+                <li>FEN generation and internal board representation for engine compatibility</li>
 
-                <li>
-                    Real-time piece recognition and board state extraction from visual input
-                </li>
+                <li>Stockfish integration for move planning and decision-making</li>
 
-                <li>
-                    Chess engine integration for move generation and decision-making logic
-                </li>
+                <li>CNN-based piece classification to improve robustness of visual state extraction</li>
 
-                <li>
-                    System-level mouse automation for executing moves on a graphical interface
-                </li>
+                <li>Grid-to-screen coordinate mapping for precise move execution</li>
 
-                <li>
-                    Coordinate mapping between visual UI space and internal board representation
-                </li>
-
-                <li>
-                    End-to-end autonomous gameplay loop operating on a live graphical interface
-                </li>
-
+                <li>OS-level input automation enabling end-to-end autonomous gameplay loop</li>
             </ul>
 
             <a href="https://github.com/NekrashevychOleksandr/Chess_Agent"
